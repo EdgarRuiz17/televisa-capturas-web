@@ -21,7 +21,9 @@ const FormInput = (props) => {
     }
 
     return (
-        <div className="form-group w-100">
+        <div className="form-group w-100"
+            style={{"width": "150px"}}
+        >
             <GroupInput>
                 <Input
                     type={props.type}

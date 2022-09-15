@@ -7,7 +7,7 @@ import React from "react";
 
 //views
 import Login from "./views/Login";
-import Prueba from "./views/prueba";
+import Import from "./views/Import";
 
 //Compoents
 
@@ -27,8 +27,10 @@ const InitialRoutes = () => {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Prueba />} />
+          <Route path="/" element={<Login />} />
           <Route path="*" element={<Login />} />
+          <Route path="/home" element={<Import />} />
+          <Route path="/admin" element={<Login />} />
         </Routes>
       </Router>
     </div>

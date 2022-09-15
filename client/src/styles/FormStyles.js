@@ -91,11 +91,27 @@ const Button = styled.button`
 	}
 `;
 
+const ErrorMessage = styled.div`
+	height: 45px;
+	line-height: 45px;
+	background: #F66060;
+	padding: 0px 15px;
+	border-radius: 3px;
+	grid-column: span 2;
+	p {
+		margin: 0;
+	} 
+	b {
+		margin-left: 10px;
+	}
+`;
+
 export {
     WrongInput,
     Input,
     Label,
     IconValidation,
     Button,
-    GroupInput
+    GroupInput,
+	ErrorMessage
 };
