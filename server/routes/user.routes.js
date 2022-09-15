@@ -1,10 +1,15 @@
 import { Router } from "express"
 import Usuarios from "../models/Usuarios";
 import Programacion from "../models/Programacion";
+import { SECRET } from "../settings/llaves";
+import jwt from "jsonwebtoken"
+import randtoken from "rand-token"
 
 const router = Router()
+const refreshTokens = {} 
 
 router.post('/usuarios/add',  (req, res) =>{
+
     const {nombre_Usuario, contrasena_Usuario, tipo_Usuario} = req.body;
 
     const usuario = new Usuarios({nombre_Usuario,contrasena_Usuario,tipo_Usuario});
@@ -18,7 +23,8 @@ router.post('/usuarios/add',  (req, res) =>{
     });
 });
 
-router.post('/usuarios/autenticar',  (req, res) =>{
+router.get('/usuarios/autenticar',  (req, res) =>{
+
     const { nombre_Usuario, contrasena_Usuario } = req.body;
 
     Usuarios.findOne({nombre_Usuario}, (err, user) =>{
@@ -31,7 +37,15 @@ router.post('/usuarios/autenticar',  (req, res) =>{
                 if(err){
                     res.status(500).send('ERROR AL AUTENTICAR')
                 }else if(result){
-                    res.status(200).send(user.tipo_Usuario);
+                    const usuario = {
+                        nombre_Usuario,
+                        contrasena_Usuario, 
+                        tipo_Usuario: user.tipo_Usuario
+                    };
+                    const token = jwt.sign(usuario, SECRET, { expiresIn: 300 });
+                    const refreshToken = randtoken.uid(256);
+                    refreshTokens[refreshToken] = nombre_Usuario;
+                    res.json({token: 'JWT ' + token, refreshToken: refreshToken});
                 }else{
                     res.status(500).send('USUARIO Y/O CONTRASENA INCORRECTOS');
                 }
@@ -39,6 +53,38 @@ router.post('/usuarios/autenticar',  (req, res) =>{
         }
    })
 })
+
+router.get('/usuarios/validar', (req, res)=>{
+    
+    let token = req.headers['x-access-token'] || req.headers['authorization'];
+    if(!token){
+        res.status(500).json({
+            valido: false,
+            mensaje: "Favor de introducir el token."
+        })
+        return
+    }   
+    if(token.startsWith('Bearer ')){
+        token = token.slice(7, token.length);
+        console.log(token);
+    }
+    if(token){
+        jwt.verify(token, SECRET, (err, decoded)=>{
+            if(err){
+                return res.json({
+                    valido: false,
+                    mensaje: "Token expirado o invalido."
+                });
+            }else{
+                res.json({
+                    valido: true,
+                    mensaje: "Token valido."
+                });
+            }
+        })
+    }
+})
+
 
 router.post('/programacion/add', (req, res) =>{
 
