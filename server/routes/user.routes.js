@@ -16,7 +16,7 @@ import { SECRET } from "../settings/llaves";
 const router = Router()
 const refreshTokens = {} 
 
-router.post('/usuarios/add', verificar, (req, res) =>{
+router.post('/usuarios/add', (req, res) =>{
 
     const {nombre_Usuario, contrasena_Usuario, tipo_Usuario} = req.body;
 
@@ -32,18 +32,44 @@ router.post('/usuarios/add', verificar, (req, res) =>{
 });
 
 router.post('/usuarios/autenticar',  (req, res) =>{
-
+    console.log(req.body);
     const { nombre_Usuario, contrasena_Usuario } = req.body;
-    console.log(req.body)
     Usuarios.findOne({nombre_Usuario}, (err, user) =>{
         if(err){
-            res.status(500).send('ERROR AL AUTENTICAR AL USUARIO');
+            res.status(201).json({
+                acceso: "false",
+                mensaje: 'ERROR AL AUTENTICAR AL USUARIO',
+                token: "",
+                tipo_Usuario:{
+                    administrador: false,
+                    usuario: false,
+                    usuario_web: false
+                }
+            });
         }else if(!user){
-            res.status(500).send('EL USUARIO NO EXISTE');
+            res.status(201).json({
+                acceso: "false",
+                mensaje: 'EL USUARIO NO EXISTE',
+                token: "",
+                tipo_Usuario:{
+                    administrador: false,
+                    usuario: false,
+                    usuario_web: false
+                }
+            });
         }else{
             user.isCorrectPassword(contrasena_Usuario, (err, result) =>{
                 if(err){
-                    res.status(500).send('ERROR AL AUTENTICAR')
+                    res.status(201).json({
+                        acceso: "false",
+                        mensaje: 'ERROR AL AUTENTICAR',
+                        token: "",
+                        tipo_Usuario:{
+                            administrador: false,
+                            usuario: false,
+                            usuario_web: false
+                        }
+                    });
                 }else if(result){
                     const tipo_Usuario = user.tipo_Usuario;
                     const usuario = {
@@ -53,9 +79,22 @@ router.post('/usuarios/autenticar',  (req, res) =>{
                     };
                     const token = jwt.sign(usuario, SECRET, { expiresIn: 300 });
 
-                    res.status(200).json({ token, tipo_Usuario});
+                    res.status(200).json({
+                        acceso: "true",
+                        mensaje: 'EL USUARIO FUE AUTENTIFICADO',
+                        token, 
+                        tipo_Usuario});
                 }else{
-                    res.status(500).send('USUARIO Y/O CONTRASENA INCORRECTOS');
+                    res.status(201).json({
+                        acceso: "false",
+                        mensaje: 'CONTRASENA INCORRECTA',
+                        token: "",
+                        tipo_Usuario:{
+                            administrador: false,
+                            usuario: false,
+                            usuario_web: false
+                        }
+                    });
                 }
             })
         }
@@ -86,7 +125,7 @@ router.post('/programacion/add', verificar, (req, res) =>{
 })
 
 
-router.post('/programacion/update/status', verificar, (req, res) =>{
+router.post('/programacion/update/status', (req, res) =>{
 
     const {_id, dia_id, datos } = req.body;
 
@@ -124,7 +163,7 @@ router.post('/programacion/delete', verificar, (req, res) =>{
 
 })
 
-router.get('/programacion/list', verificar , async (req , res) => {
+router.get('/programacion/list' , async (req , res) => {
     await Programacion.find({}).then(
         function (programas) {
             if(programas.length<1){
@@ -135,7 +174,7 @@ router.get('/programacion/list', verificar , async (req , res) => {
     });
 });
 
-router.get('/programacion/latest', verificar , async (req , res) => {
+router.get('/programacion/latest' , async (req , res) => {
     await Programacion.findOne().sort({_id:-1}).limit(1).then(
         function (programa) {
             if(!programa){
