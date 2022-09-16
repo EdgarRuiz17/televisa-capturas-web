@@ -1,14 +1,22 @@
 import { Router } from "express"
+
+//Modelos de mongoDB
 import Usuarios from "../models/Usuarios";
 import Programacion from "../models/Programacion";
-import { SECRET } from "../settings/llaves";
+
+//middlewares
+import verificar from "../middlewares/userExtractor";
+
+//Libreria requerida para autenticar
 import jwt from "jsonwebtoken"
-import randtoken from "rand-token"
+
+//KEY
+import { SECRET } from "../settings/llaves";
 
 const router = Router()
 const refreshTokens = {} 
 
-router.post('/usuarios/add',  (req, res) =>{
+router.post('/usuarios/add', verificar, (req, res) =>{
 
     const {nombre_Usuario, contrasena_Usuario, tipo_Usuario} = req.body;
 
@@ -23,10 +31,10 @@ router.post('/usuarios/add',  (req, res) =>{
     });
 });
 
-router.get('/usuarios/autenticar',  (req, res) =>{
+router.post('/usuarios/autenticar',  (req, res) =>{
 
     const { nombre_Usuario, contrasena_Usuario } = req.body;
-
+    console.log(req.body)
     Usuarios.findOne({nombre_Usuario}, (err, user) =>{
         if(err){
             res.status(500).send('ERROR AL AUTENTICAR AL USUARIO');
@@ -37,15 +45,15 @@ router.get('/usuarios/autenticar',  (req, res) =>{
                 if(err){
                     res.status(500).send('ERROR AL AUTENTICAR')
                 }else if(result){
+                    const tipo_Usuario = user.tipo_Usuario;
                     const usuario = {
                         nombre_Usuario,
                         contrasena_Usuario, 
-                        tipo_Usuario: user.tipo_Usuario
+                        tipo_Usuario
                     };
                     const token = jwt.sign(usuario, SECRET, { expiresIn: 300 });
-                    const refreshToken = randtoken.uid(256);
-                    refreshTokens[refreshToken] = nombre_Usuario;
-                    res.json({token: 'JWT ' + token, refreshToken: refreshToken});
+
+                    res.status(200).json({ token, tipo_Usuario});
                 }else{
                     res.status(500).send('USUARIO Y/O CONTRASENA INCORRECTOS');
                 }
@@ -54,39 +62,14 @@ router.get('/usuarios/autenticar',  (req, res) =>{
    })
 })
 
-router.get('/usuarios/validar', (req, res)=>{
-    
-    let token = req.headers['x-access-token'] || req.headers['authorization'];
-    if(!token){
-        res.status(500).json({
-            valido: false,
-            mensaje: "Favor de introducir el token."
-        })
-        return
-    }   
-    if(token.startsWith('Bearer ')){
-        token = token.slice(7, token.length);
-        console.log(token);
-    }
-    if(token){
-        jwt.verify(token, SECRET, (err, decoded)=>{
-            if(err){
-                return res.json({
-                    valido: false,
-                    mensaje: "Token expirado o invalido."
-                });
-            }else{
-                res.json({
-                    valido: true,
-                    mensaje: "Token valido."
-                });
-            }
-        })
-    }
+router.get('/usuarios/verificar', verificar, (req, res) => {
+    res.status(200).json({
+        valido: true
+    });
 })
 
 
-router.post('/programacion/add', (req, res) =>{
+router.post('/programacion/add', verificar, (req, res) =>{
 
     console.log(req.body);
 
@@ -103,7 +86,7 @@ router.post('/programacion/add', (req, res) =>{
 })
 
 
-router.post('/programacion/update/status', (req, res) =>{
+router.post('/programacion/update/status', verificar, (req, res) =>{
 
     const {_id, dia_id, datos } = req.body;
 
@@ -126,7 +109,7 @@ router.post('/programacion/update/status', (req, res) =>{
 })
 
 
-router.post('/programacion/delete', (req, res) =>{
+router.post('/programacion/delete', verificar, (req, res) =>{
 
     const { _id } = req.body;
     
@@ -141,7 +124,7 @@ router.post('/programacion/delete', (req, res) =>{
 
 })
 
-router.get('/programacion/list' , async (req , res) => {
+router.get('/programacion/list', verificar , async (req , res) => {
     await Programacion.find({}).then(
         function (programas) {
             if(programas.length<1){
@@ -152,7 +135,7 @@ router.get('/programacion/list' , async (req , res) => {
     });
 });
 
-router.get('/programacion/latest' , async (req , res) => {
+router.get('/programacion/latest', verificar , async (req , res) => {
     await Programacion.findOne().sort({_id:-1}).limit(1).then(
         function (programa) {
             if(!programa){
