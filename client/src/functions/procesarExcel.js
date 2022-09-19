@@ -1,6 +1,6 @@
 
 export const processInformation = (data) => {
-
+    console.log(data)
     const encabezados = ['B', 'C', 'D', 'E', 'F', 'G', 'H'];
     const arrayProgramacion = {};
     var espacios = '';
@@ -15,6 +15,8 @@ export const processInformation = (data) => {
         var Programa = "";
         var i = 9;
         var l = 0;
+
+        var contador4 = 0;
 
         for (i = 9; i < 105; i++) {
             if (data['A' + i] !== undefined) {
@@ -37,11 +39,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -50,11 +53,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -70,11 +73,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -83,11 +87,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -102,11 +106,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -115,11 +120,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -134,11 +139,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -147,11 +153,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -166,11 +172,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -179,11 +186,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -198,11 +205,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -211,11 +219,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -230,11 +238,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -243,11 +252,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -268,11 +277,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: HorasConvertidas,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
                             contador++;
 
@@ -280,11 +290,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: HorasConvertidas,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -299,11 +309,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -312,11 +323,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -331,11 +342,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -344,11 +356,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -363,11 +375,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -376,11 +389,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -395,11 +408,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -408,11 +422,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -428,11 +442,12 @@ export const processInformation = (data) => {
                             if (dataComponents.length > 3) {
                                 programa_json[contador] =
                                 {
-                                    hora_inicio: data['A' + i].v,
-                                    programa: dataComponents[0],
-                                    nombre: dataComponents[1],
-                                    tipo: dataComponents[2],
-                                    calidad: dataComponents[3]
+                                    hora_Inicio: data['A' + i].v,
+                                    programa_Nombre: dataComponents[0],
+                                    programa_Subnombre: dataComponents[1],
+                                    programa_Tipo: dataComponents[2],
+                                    programa_Calidad: dataComponents[3],
+                                    programa_Dia: "1"
                                 }
 
                                 contador++;
@@ -441,11 +456,11 @@ export const processInformation = (data) => {
                             } else {
                                 programa_json[contador] =
                                 {
-                                    hora_inicio: data['A' + i].v,
-                                    programa: dataComponents[0],
-                                    nombre: "",
-                                    tipo: dataComponents[1],
-                                    calidad: dataComponents[2]
+                                    hora_Inicio: data['A' + i].v,
+                                    programa_Nombre: dataComponents[0],
+                                    programa_Tipo: dataComponents[1],
+                                    programa_Calidad: dataComponents[2],
+                                    programa_Dia: "1"
                                 }
 
 
@@ -461,11 +476,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -474,11 +490,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -498,11 +514,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: HorasConvertidas,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
                             contador++;
 
@@ -510,11 +527,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: HorasConvertidas,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -529,11 +546,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -542,11 +560,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -561,11 +579,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -574,11 +593,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -593,11 +612,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -606,11 +626,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 
@@ -625,11 +645,12 @@ export const processInformation = (data) => {
                         if (dataComponents.length > 3) {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: dataComponents[1],
-                                tipo: dataComponents[2],
-                                calidad: dataComponents[3]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Subnombre: dataComponents[1],
+                                programa_Tipo: dataComponents[2],
+                                programa_Calidad: dataComponents[3],
+                                programa_Dia: "1"
                             }
 
                             contador++;
@@ -638,11 +659,11 @@ export const processInformation = (data) => {
                         } else {
                             programa_json[contador] =
                             {
-                                hora_inicio: data['A' + i].v,
-                                programa: dataComponents[0],
-                                nombre: "",
-                                tipo: dataComponents[1],
-                                calidad: dataComponents[2]
+                                hora_Inicio: data['A' + i].v,
+                                programa_Nombre: dataComponents[0],
+                                programa_Tipo: dataComponents[1],
+                                programa_Calidad: dataComponents[2],
+                                programa_Dia: "1"
                             }
 
 

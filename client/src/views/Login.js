@@ -38,14 +38,15 @@ const Login = () => {
             await axios.post("http://localhost:9000/usuarios/autenticar",     
                 { nombre_Usuario: nombre_Usuario.value, contrasena_Usuario: contrasena_Usuario.value }
             ).then( function (res) {
-                const datos = res.data;
-                
-                if(datos.administrador){
+                const permisos = res.data.tipo_Usuario;
+                const token = res.data.token;
+                if(permisos.administrador){
                     navigate("/admin");
-                }else if(datos.usuario){
+                }else if(permisos.usuario){
                     setError("ESTE USUARIO NO PUEDE ACCEDER A ESTE SISTEMA.");
-                }else if(datos.usuario_web){
-                    
+                }else if(permisos.usuario_web){
+                    localStorage.setItem("Token", token);
+                    console.log(token);
                     navigate("/home");
                 }
             }).catch(function (error) {
