@@ -1,6 +1,6 @@
 import {Schema, model} from 'mongoose';
 
-const programasSchema = new Schema({
+const programsSchema = new Schema({
     programa_Dia: {
         type:Number,
         required: true
@@ -33,6 +33,10 @@ const programasSchema = new Schema({
             type:String,
             required: true
         },
+    programmation: {
+        type: Schema.Types.ObjectId,
+        ref: "Programmations"
+    },
     programa_Estatus: {
             Calificado: {
                 type: Boolean,
@@ -52,21 +56,4 @@ const programasSchema = new Schema({
     }
 })
 
-
-const programacionSchema = new Schema({
-    semana_Inicio: {
-        type:String,
-        required: true
-    },
-    semana_Fin: {
-        type:String,
-        required: true
-    },
-    semana_Programas: 
-    [
-        programasSchema
-    ]
-})
-
-
-export default model('Programaciones',programacionSchema);
+export default model('Programs',programsSchema);

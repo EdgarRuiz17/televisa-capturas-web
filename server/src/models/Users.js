@@ -1,7 +1,7 @@
 import {Schema, model} from 'mongoose';
 import bcrypt from 'bcrypt'
 
-const usuariosSchema = new Schema({
+const usersSchema = new Schema({
     nombre_Usuario: {
         type:String,
         required: true,
@@ -31,7 +31,7 @@ const usuariosSchema = new Schema({
 
 const saltRounds = 10;
 
-usuariosSchema.pre('save', function(next){
+usersSchema.pre('save', function(next){
     if(this.isNew || this.isModified('contrasena_Usuario')){
         const document = this;
         bcrypt.hash(document.contrasena_Usuario, saltRounds, (err, hashedContrasena) =>{
@@ -47,7 +47,7 @@ usuariosSchema.pre('save', function(next){
     }
 });
 
-usuariosSchema.methods.isCorrectPassword = function(contrasena_Usuario, callback){
+usersSchema.methods.isCorrectPassword = function(contrasena_Usuario, callback){
     bcrypt.compare(contrasena_Usuario, this.contrasena_Usuario, function(err, same){
         if(err){
             callback(err);
@@ -57,4 +57,4 @@ usuariosSchema.methods.isCorrectPassword = function(contrasena_Usuario, callback
     });
 }
 
-export default model('Usuarios',usuariosSchema);
+export default model('Users',usersSchema);
