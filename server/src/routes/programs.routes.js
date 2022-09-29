@@ -11,6 +11,6 @@ router
    .post("/add/:programationId", addNewProgram)
    .put("/update/status/:programId", updateProgramStatusById)
    .put("/update/:programId", updateProgramById)
-   .delete("/delete", deleteProgramById);
+   .delete("/delete/:programId", deleteProgramById);
 
 export default router;
