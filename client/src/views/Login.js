@@ -35,9 +35,10 @@ const Login = () => {
     const validar = async () => {
 
         if(nombre_Usuario.flag === "true" && contrasena_Usuario.flag === "true"){
-            await axios.post("http://localhost:9000/usuarios/autenticar",     
+            await axios.post("http://localhost:9000/users/login",     
                 { nombre_Usuario: nombre_Usuario.value, contrasena_Usuario: contrasena_Usuario.value }
             ).then( function (res) {
+                console.log(res)
                 const permisos = res.data.tipo_Usuario;
                 const token = res.data.token;
                 if(permisos.administrador){
@@ -47,7 +48,7 @@ const Login = () => {
                 }else if(permisos.usuario_web){
                     localStorage.setItem("Token", token);
                     console.log(token);
-                    navigate("/home");
+                    navigate("/menu");
                 }
             }).catch(function (error) {
                 const mensaje = error.response.data;

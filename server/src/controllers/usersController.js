@@ -99,10 +99,10 @@ export const logInUser = (req, res) => {
    });
 };
 
-export const updateUserById = async (req, res) => {
+export const updateUserById = (req, res) => {
    const { userId } = req.params;
 
-   await Users.findOneAndUpdate({ _id: userId }, req.body, function (err, updatedUser) {
+   Users.findOneAndUpdate({ _id: userId }, req.body, function (err, updatedUser) {
       if (err) return res.status(500).send("User not found");
       return res.status(200).send("User updated successfully");
    });

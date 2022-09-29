@@ -41,10 +41,10 @@ export const updateProgramById = async (req, res) => {
    });
 };
 
-export const deleteProgramById = async (req, res) => {
+export const deleteProgramById = (req, res) => {
    const { programId } = req.params;
 
-   await Programs.findByIdAndDelete({ _id: programId }, function (err, deleted) {
+    Programs.findByIdAndDelete({ _id: programId }, function (err, deleted) {
       if (err) return res.status(202).send("Program not found");
    });
 

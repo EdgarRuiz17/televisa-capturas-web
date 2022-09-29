@@ -14,8 +14,7 @@ export const getLatestProgrammation = async (req, res) => {
       .sort({ _id: -1 })
       .limit(1)
       .populate("semana_Programas", "")
-      .then(function (err, programs) {
-         if (err) res.status(500).send(err);
+      .then(function (programs) {
          res.status(200).send(programs);
       });
 };
