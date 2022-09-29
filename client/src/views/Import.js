@@ -3,7 +3,6 @@ import { Menu } from '../components/Menu'
 import { processInformation } from '../functions/procesarExcel';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import Modal from '../components/Modal';
 
 import * as XLSX from "xlsx";
 
@@ -13,35 +12,35 @@ const Import = () => {
 
     const [datos, setDatos] = useState(null);
 
-    useEffect(() => {
-        setInterval( verificarToken, 50000);
-    },[])
+    // useEffect(() => {
+    //     setInterval( verificarToken, 50000);
+    // },[])
 
     const [renderizar, setRenderizar] = useState(false)
 
-    useEffect(()=>{
-       mostrar();
-    },[renderizar])
+    // useEffect(()=>{
+    //    mostrar();
+    // },[renderizar])
 
-    const mostrar = () =>{
-        return <Modal/>
-    }
+    // const mostrar = () =>{
+    //     return <Modal/>
+    // }
 
-    const verificarToken = async() =>{
-        await axios.get("http://localhost:9000/usuarios/verificar",     
-                { headers: {"Authorization" : `Bearer ${localStorage.getItem('Token')}`} }
-            ).then( function (res) {
-                const valido = res.data.valido;
-                if(valido){
-                    setRenderizar(!true);
-                }else{
-                    localStorage.removeItem('key');
+    // const verificarToken = async() =>{
+    //     await axios.get("http://localhost:9000/usuarios/verificar",     
+    //             { headers: {"Authorization" : `Bearer ${localStorage.getItem('Token')}`} }
+    //         ).then( function (res) {
+    //             const valido = res.data.valido;
+    //             if(valido){
+    //                 setRenderizar(!true);
+    //             }else{
+    //                 localStorage.removeItem('key');
                    
-                }
-            }).catch(function (error) {
+    //             }
+    //         }).catch(function (error) {
               
-            })
-    }
+    //         })
+    // }
 
     const MostrarDatos = () => {
         if(datos){
@@ -82,7 +81,6 @@ const Import = () => {
 
     return (
         <main class="d-flex">
-            <Menu />
             <div className='container vh-100'>
                 <div className='row p-4 justify-content-center align-items-center'>
                     <div className='col-auto'>
