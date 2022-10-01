@@ -8,12 +8,6 @@ import { Link, Outlet } from "react-router-dom";
 import PreviewIcon from "@mui/icons-material/Preview";
 
 const GrillsScreen = () => {
-   const [value, setValue] = React.useState("1");
-
-   const handleChange = (event, newValue) => {
-      setValue(newValue);
-   };
-
    return (
       <div>
          <Box sx={{ display: "flex" }}>

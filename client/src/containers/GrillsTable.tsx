@@ -15,6 +15,11 @@ import { Button, Typography } from "@mui/material";
 import GrillsModal from "../components/GrillsModal";
 import AlertDialog from "../components/AlertDialog";
 
+interface Data {
+   fecha: string;
+   id: string;
+}
+
 const columns = [
    { id: "Inicio/Fin", label: "Inicio/Fin", minWidth: 30 },
    { id: "detalles", label: "Ver detalles", minWidth: 30 },
@@ -22,12 +27,11 @@ const columns = [
    { id: "eliminar", label: "Eliminar", minWidth: 30 },
 ];
 
-function createData(data) {
-   var programmations = [];
-   data.map((m) => {
-      programmations.push({ fecha: m.semana_Inicio + " - " + m.semana_Fin, id: m._id });
-   });
-   return programmations;
+function createData(semana_inicio: string, semana_fin: string, id: string): Data {
+   return {
+      fecha: semana_inicio + " - " + semana_fin,
+      id: id,
+   };
 }
 
 export default function StickyHeadTable() {
@@ -37,7 +41,9 @@ export default function StickyHeadTable() {
    const [rowsPerPage, setRowsPerPage] = React.useState(5);
    const [programmations, setProgrammations] = React.useState([]);
 
-   const rows = createData(programmations);
+   const rows = programmations.map((programmation: any) => {
+      return createData(programmation.semana_Inicio, programmation.semana_Fin, programmation.id);
+   });
 
    React.useEffect(() => {
       const getProgrammations = async () => {
@@ -51,12 +57,12 @@ export default function StickyHeadTable() {
 
    const handleOpen = () => setOpenModifyModal(true);
 
-   const handleChangePage = (event, newPage) => {
+   const handleChangePage = (event: unknown, newPage: number) => {
       setPage(newPage);
    };
 
-   const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(+event.target.value);
+   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
    };
 
@@ -68,7 +74,7 @@ export default function StickyHeadTable() {
                   <TableRow>
                      {columns.map((column) => (
                         <>
-                           <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                           <TableCell key={column.id} style={{ minWidth: column.minWidth }}>
                               <Typography sx={{ fontSize: "17px" }}>{column.label}</Typography>
                            </TableCell>
                         </>
@@ -88,12 +94,12 @@ export default function StickyHeadTable() {
                               </Button>
                            </TableCell>
                            <TableCell>
-                              <Button onClick={()=>handleOpen()}>
+                              <Button onClick={() => handleOpen()}>
                                  <BorderColorIcon />
                               </Button>
                            </TableCell>
                            <TableCell>
-                              <Button onClick={()=>setOpenDeleteAlert(true)}>
+                              <Button onClick={() => setOpenDeleteAlert(true)}>
                                  <DeleteForeverIcon />
                               </Button>
                            </TableCell>
