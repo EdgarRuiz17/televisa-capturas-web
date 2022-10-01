@@ -3,9 +3,7 @@ import jwt from "jsonwebtoken";
 import { SECRET } from "../settings/llaves";
 
 export const verifyUserToken = (req, res) => {
-   res.status(200).json({
-      valido: true,
-   });
+   res.status(200).json(req.decoded);
 };
 
 export const getAllUsers = async (req, res) => {
