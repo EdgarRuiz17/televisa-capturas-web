@@ -10,7 +10,7 @@ const ADD = "/add";
 const UPDATE = "/update";
 const DELETE = "/delete";
 const LIST = "/list";
-const LATEST = "/latest"
+const LATEST = "/latest";
 
 export const getAllProgrammations = async () => {
    return await axios.get(`${LOCALROUTE}${PROGRAMMATIONS}${LIST}`);
