@@ -18,6 +18,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link, Outlet } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import TableViewIcon from "@mui/icons-material/TableView";
 
@@ -191,6 +192,31 @@ export default function MiniDrawer() {
             </ListItem>
 
             <Divider />
+            <Box sx={{ position: "absolute", bottom: "0%", rigth: "0%", width: "100%" }}>
+               <Divider />
+               <ListItem key={"text"} disablePadding sx={{ display: "block"}}>
+                  <Link to={"/menu/grills/list"}>
+                     <ListItemButton
+                        sx={{
+                           minHeight: 48,
+                           justifyContent: open ? "initial" : "center",
+                           px: 2.5,
+                        }}
+                     >
+                        <ListItemIcon
+                           sx={{
+                              minWidth: 0,
+                              mr: open ? 3 : "auto",
+                              justifyContent: "center",
+                           }}
+                        >
+                           <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Cerrar sesión"} sx={{ opacity: open ? 1 : 0 }} />
+                     </ListItemButton>
+                  </Link>
+               </ListItem>
+            </Box>
          </Drawer>
          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <DrawerHeader />
