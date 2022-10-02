@@ -73,7 +73,7 @@ export const logInUser = (req: Request, res: Response) => {
                   contrasena_Usuario,
                   tipo_Usuario,
                };
-               const token = jwt.sign(usuario, SECRET, { expiresIn: 300 });
+               const token = jwt.sign(usuario, SECRET, { expiresIn: 1200 });
 
                res.status(200).json({
                   acceso: "true",
