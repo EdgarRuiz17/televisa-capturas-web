@@ -8,6 +8,7 @@ import * as jwt from "jsonwebtoken";
 
 function verify(req: any, res: Response, next: NextFunction) {
    let token: any = req.headers["x-access-token"] || req.headers["authorization"];
+   console.log(token);
    if (!token) {
       res.status(500).json({
          valido: false,
@@ -31,6 +32,11 @@ function verify(req: any, res: Response, next: NextFunction) {
             req.decoded = {
                valido: true,
                mensaje: "Token valido.",
+               user_data: {
+                  nombre_Usuario: decoded.nombre_Usuario,
+                  contrasena_Usuario: decoded.contrasena_Usuario,
+                  tipo_Usuario: decoded.tipo_Usuario,
+               },
             };
             next();
          }

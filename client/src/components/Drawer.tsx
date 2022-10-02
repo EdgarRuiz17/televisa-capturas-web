@@ -21,6 +21,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import TableViewIcon from "@mui/icons-material/TableView";
 import { Theme, CSSObject } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import TokenExpiredModal from "./TokenExpiredModal";
+import CurrentUserContext from "../context/userContext";
+import { LoadingButton } from "@mui/lab";
+import LoadingModal from "./LoadingModal";
 
 const drawerWidth = 240;
 
@@ -95,6 +99,7 @@ export default function MiniDrawer() {
    const theme = useTheme();
    const [open, setOpen] = React.useState(false);
    const [openMenu, setOpenMenu] = React.useState(false);
+   const { authIsLoading } = React.useContext(CurrentUserContext);
 
    const handleDrawerOpen = () => {
       setOpen(true);
@@ -226,6 +231,8 @@ export default function MiniDrawer() {
             <DrawerHeader />
             <Outlet />
          </Box>
+         {/* <TokenExpiredModal open={tokenValidation ? false : true} /> */}
+         <LoadingModal open={authIsLoading} />
       </Box>
    );
 }
