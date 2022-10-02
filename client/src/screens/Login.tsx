@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 //styled components
 import { ErrorMessage } from "../styles/FormStyles";
 import Input from "../components/FormInput";
+import CurrentUserContext from "../context/userContext";
+import { AuthUser } from "../backend/backendRequests";
+import TokenExpiredModal from "../components/TokenExpiredModal";
 
 const Logo = require("../assets/logo-televisa.png");
 
-const Login = () => {
+export default function Login() {
    const navigate = useNavigate();
+   const { setCurrentUser, setTokenValidation, openExpiredModal, setOpenExpiredModal } =
+      React.useContext(CurrentUserContext);
 
    const [nombre_Usuario, setUsuario] = useState<any>({
       value: "",
@@ -33,31 +38,24 @@ const Login = () => {
 
    const validar = async () => {
       if (nombre_Usuario.flag === "true" && contrasena_Usuario.flag === "true") {
-         await axios
-            .post("http://localhost:9000/users/login", {
-               nombre_Usuario: nombre_Usuario.value,
-               contrasena_Usuario: contrasena_Usuario.value,
-            })
-            .then(function (res) {
-               console.log(res);
-               const permisos = res.data.tipo_Usuario;
-               const token = res.data.token;
-               if (permisos.administrador) {
-                  navigate("/admin");
-               } else if (permisos.usuario) {
-                  setError("ESTE USUARIO NO PUEDE ACCEDER A ESTE SISTEMA.");
-               } else if (permisos.usuario_web) {
-                  localStorage.setItem("Token", token);
-                  console.log(token);
-                  navigate("/menu");
-               }
-            })
-            .catch(function (error) {
-               const mensaje = error.response.data;
-               if (mensaje) {
-                  setError(mensaje);
-               }
-            });
+         const userAuthResponse = await AuthUser(nombre_Usuario.value, contrasena_Usuario.value);
+         if (userAuthResponse) {
+            console.log(userAuthResponse);
+            const permisos = userAuthResponse.data.tipo_Usuario;
+            const token = userAuthResponse.data.token;
+            localStorage.setItem("token", token);
+            setCurrentUser({ email: nombre_Usuario.value, password: contrasena_Usuario.value, type: permisos });
+            setTokenValidation(true);
+            if (permisos.administrador) {
+               navigate("/admin");
+            } else if (permisos.usuario) {
+               setError("ESTE USUARIO NO PUEDE ACCEDER A ESTE SISTEMA.");
+            } else if (permisos.usuario_web) {
+               localStorage.setItem("Token", token);
+               console.log(token);
+               navigate("/menu");
+            }
+         }
       }
    };
 
@@ -107,8 +105,7 @@ const Login = () => {
                <p className="mt-5 mb-3 text-muted">Televisa Sonora &copy; 2022</p>
             </div>
          </div>
+         <TokenExpiredModal open={openExpiredModal} setOpen={setOpenExpiredModal} />
       </div>
    );
-};
-
-export default Login;
+}
