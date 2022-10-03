@@ -55,6 +55,25 @@ export const deleteUserById = async (token: string, id: string) => {
    return await axios.delete(`${LOCALROUTE}${USERS}${DELETE}/${id}`, headers);
 };
 
+export const createNewUser = async (
+   token: string,
+   nombre_Usuario: string,
+   contrasena_Usuario: string,
+   tipo_Usuario: any
+) => {
+   const payload = {
+      nombre_Usuario,
+      contrasena_Usuario,
+      tipo_Usuario,
+   };
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.post(`${LOCALROUTE}${USERS}${ADD}`, payload, headers);
+};
+
 //Programmation calls
 
 export const getAllProgrammations = async () => {

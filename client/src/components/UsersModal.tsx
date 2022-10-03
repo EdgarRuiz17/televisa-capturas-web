@@ -13,36 +13,26 @@ interface UsersModalProps {
    open: boolean;
    setOpen: Function;
 
+   userInformation: any;
+   setUserInformation: Function;
+
    isModify: boolean;
 
    onConfirm: () => void;
    onCancel?: () => void;
 }
 
-const Types = ["Administrador", "Usuario Web", "Usuario de Escritorio"];
+const Types = ["Administrador", "Usuario Web", "Usuario de escritorio"];
 
 export default function UsersModal(props: UsersModalProps) {
-   const [programData, setProgramData] = React.useState<any>({
-      type: "Grabado",
-      quality: "A/HD",
-      startTime: dayjs("2014-08-18T21:11:54"),
-      finishTime: dayjs("2014-08-18T21:11:54"),
-   });
    const handleClose = () => props.setOpen(false);
 
-   const handleChangeType = (event: any) => {
+   const handleChangeData = (event: any) => {
       const { name, value } = event.target;
 
-      setProgramData({
-         ...programData,
+      props.setUserInformation({
+         ...props.userInformation,
          [name]: value,
-      });
-   };
-
-   const handleChangeTime = (event: Dayjs | null) => {
-      setProgramData({
-         ...programData,
-         startTime: event,
       });
    };
 
@@ -78,7 +68,12 @@ export default function UsersModal(props: UsersModalProps) {
                         <Typography id="modal-modal-title">Nombre de usuario:</Typography>
                      </Grid>
                      <Grid xs={8}>
-                        <TextField size="small" />
+                        <TextField
+                           size="small"
+                           name="nombre_Usuario"
+                           value={props.userInformation.nombre_Usuario}
+                           onChange={handleChangeData}
+                        />
                      </Grid>
                   </Grid>
                   <Grid xs={12} item container sx={{ m: 2 }}>
@@ -86,7 +81,13 @@ export default function UsersModal(props: UsersModalProps) {
                         <Typography id="modal-modal-title">Contraseña del usuario:</Typography>
                      </Grid>
                      <Grid xs={8}>
-                        <TextField size="small" type="password" />
+                        <TextField
+                           size="small"
+                           name="contrasena_Usuario"
+                           type="password"
+                           value={props.userInformation.contrasena_Usuario}
+                           onChange={handleChangeData}
+                        />
                      </Grid>
                   </Grid>
                   <Grid item container xs={12} sx={{ m: 2 }}>
@@ -97,9 +98,9 @@ export default function UsersModal(props: UsersModalProps) {
                         <Select
                            size="small"
                            id="type"
-                           name="type"
-                           value={programData.type}
-                           onChange={(e) => handleChangeType(e)}
+                           name="tipo_Usuario"
+                           value={props.userInformation.tipo_Usuario}
+                           onChange={(e) => handleChangeData(e)}
                            sx={{ width: "220px" }}
                         >
                            {Types.map((type) => {
@@ -111,10 +112,14 @@ export default function UsersModal(props: UsersModalProps) {
                </Grid>
                <Divider />
                <Grid sx={{ textAlign: "center" }}>
-                  <Button sx={{ height: "50px", bgcolor: "whitesmoke" }} variant="outlined">
+                  <Button sx={{ height: "50px", bgcolor: "whitesmoke" }} variant="outlined" onClick={props.onConfirm}>
                      {props.isModify ? "Modificar" : "Crear"}
                   </Button>
-                  <Button sx={{ height: "50px", m: 2, borderColor: "red" }} variant="outlined">
+                  <Button
+                     sx={{ height: "50px", m: 2, borderColor: "red" }}
+                     variant="outlined"
+                     onClick={() => props.setOpen(false)}
+                  >
                      Cancelar
                   </Button>
                </Grid>
