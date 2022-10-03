@@ -46,6 +46,15 @@ export const getAllUsers = async (token: string) => {
    return await axios.get(`${LOCALROUTE}${USERS}/`, headers);
 };
 
+export const deleteUserById = async (token: string, id: string) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.delete(`${LOCALROUTE}${USERS}${DELETE}/${id}`, headers);
+};
+
 //Programmation calls
 
 export const getAllProgrammations = async () => {

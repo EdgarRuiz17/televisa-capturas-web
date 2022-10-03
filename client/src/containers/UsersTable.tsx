@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { getAllProgrammations, getAllUsers } from "../backend/backendRequests";
+import { deleteUserById, getAllProgrammations, getAllUsers } from "../backend/backendRequests";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import PreviewIcon from "@mui/icons-material/Preview";
@@ -18,12 +18,14 @@ import { useToken } from "../hooks/userTokenHook";
 import Box from "@mui/material/Box";
 import UsersModal from "../components/UsersModal";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import AlertSnackBar from "../components/AlertSnackbar";
+import { AlertColor } from "@mui/lab";
 
 interface Data {
    nombre_Usuario: string;
    contrasena_Usuario: string;
    tipo_Usuario: any;
-   id: string;
+   _id: string;
 }
 
 const columns = [
@@ -33,12 +35,12 @@ const columns = [
    { id: "delette", label: "Eliminar", minWidth: 30 },
 ];
 
-function createData(nombre_Usuario: string, contrasena_Usuario: string, tipo_Usuario: any, id: string): Data {
+function createData(nombre_Usuario: string, contrasena_Usuario: string, tipo_Usuario: any, _id: string): Data {
    return {
       nombre_Usuario,
       contrasena_Usuario,
       tipo_Usuario,
-      id,
+      _id,
    };
 }
 
@@ -46,9 +48,18 @@ export default function UsersTable() {
    const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
    const [openModifyModal, setOpenModifyModal] = React.useState(false);
    const [openCreateModal, setOpenCreateModal] = React.useState(false);
+   const [openSnackBar, setOpenSnackBar] = React.useState(false);
+   const [messageSnackBar, setMessageSnackBar] = React.useState("");
+   const [severitySnackBar, setSeveritySnackBar] = React.useState<AlertColor>("error");
    const [page, setPage] = React.useState(0);
    const [rowsPerPage, setRowsPerPage] = React.useState(5);
    const [users, setAllUsers] = React.useState([]);
+   const [user, setUser] = React.useState<Data>({
+      _id: "",
+      nombre_Usuario: "",
+      contrasena_Usuario: "",
+      tipo_Usuario: "",
+   });
    const token = useToken();
 
    const rows = users.map((user: any) => {
@@ -71,7 +82,17 @@ export default function UsersTable() {
          setAllUsers(usersResponseData);
       };
       getUsers();
-   }, []);
+   }, [openDeleteAlert]);
+
+   const handleDeleteUser = async (id: string) => {
+      const deleteUserResponse = await deleteUserById(token, id);
+      if (deleteUserResponse) {
+         setMessageSnackBar("El usuario fué eliminado.");
+         setSeveritySnackBar("success");
+         setOpenSnackBar(true);
+      }
+      setOpenDeleteAlert(false);
+   };
 
    const handleOpen = () => setOpenModifyModal(true);
 
@@ -110,7 +131,7 @@ export default function UsersTable() {
                      <TableBody>
                         {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => {
                            return (
-                              <TableRow hover role="checkbox" tabIndex={-1} key={i} onClick={() => console.log(row.id)}>
+                              <TableRow hover role="checkbox" tabIndex={-1} key={i}>
                                  <TableCell>
                                     <Typography sx={{ fontSize: "17px" }}>{row.nombre_Usuario}</Typography>
                                  </TableCell>
@@ -123,7 +144,17 @@ export default function UsersTable() {
                                     </Button>
                                  </TableCell>
                                  <TableCell>
-                                    <Button onClick={() => setOpenDeleteAlert(true)}>
+                                    <Button
+                                       onClick={() =>
+                                          users.findIndex((e) => {
+                                             console.log(e);
+                                             if (e._id === row._id) {
+                                                setUser(e);
+                                             }
+                                             setOpenDeleteAlert(true);
+                                          })
+                                       }
+                                    >
                                        <DeleteForeverIcon />
                                     </Button>
                                  </TableCell>
@@ -149,7 +180,13 @@ export default function UsersTable() {
                   message={"Si se continúa, se eliminará todos los datos del usuario."}
                   open={openDeleteAlert}
                   setOpen={setOpenDeleteAlert}
-                  onConfirm={() => {}}
+                  onConfirm={() => handleDeleteUser(user._id)}
+               />
+               <AlertSnackBar
+                  open={openSnackBar}
+                  setOpen={setOpenSnackBar}
+                  message={messageSnackBar}
+                  severity={severitySnackBar}
                />
             </Paper>
          </Box>
