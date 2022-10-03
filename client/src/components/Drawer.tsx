@@ -100,7 +100,7 @@ export default function MiniDrawer() {
    const theme = useTheme();
    const [open, setOpen] = React.useState(false);
    const [openMenu, setOpenMenu] = React.useState(false);
-   const { authIsLoading, handleLogout } = React.useContext(CurrentUserContext);
+   const { authIsLoading, handleLogout, currentUser } = React.useContext(CurrentUserContext);
    const [openLogoutModal, setOpenLogoutModal] = React.useState(false);
 
    const handleDrawerOpen = () => {
@@ -147,6 +147,7 @@ export default function MiniDrawer() {
                      justifyContent: open ? "initial" : "center",
                      px: 2.5,
                   }}
+                  onClick={() => console.log(currentUser)}
                >
                   <ListItemIcon
                      sx={{
@@ -181,24 +182,30 @@ export default function MiniDrawer() {
                         <ListItemText primary={"Parrillas"} sx={{ opacity: open ? 1 : 0 }} />
                      </ListItemButton>
                   </Link>
-                  <ListItemButton
-                     sx={{
-                        minHeight: 48,
-                        justifyContent: open ? "initial" : "center",
-                        px: 2.5,
-                     }}
-                  >
-                     <ListItemIcon
-                        sx={{
-                           minWidth: 0,
-                           mr: open ? 3 : "auto",
-                           justifyContent: "center",
-                        }}
-                     >
-                        <GroupIcon />
-                     </ListItemIcon>
-                     <ListItemText primary={"Users"} sx={{ opacity: open ? 1 : 0 }} />
-                  </ListItemButton>
+                  {currentUser.tipo_Usuario.administrador ? (
+                     <Link to={"/menu/users"} style={{ textDecoration: "none", color: "black" }}>
+                        <ListItemButton
+                           sx={{
+                              minHeight: 48,
+                              justifyContent: open ? "initial" : "center",
+                              px: 2.5,
+                           }}
+                        >
+                           <ListItemIcon
+                              sx={{
+                                 minWidth: 0,
+                                 mr: open ? 3 : "auto",
+                                 justifyContent: "center",
+                              }}
+                           >
+                              <GroupIcon />
+                           </ListItemIcon>
+                           <ListItemText primary={"Users"} sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                     </Link>
+                  ) : (
+                     <></>
+                  )}
                </ListItem>
             </ListItem>
 

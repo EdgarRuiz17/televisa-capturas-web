@@ -9,6 +9,7 @@ import GrillsScreen from "./screens/GrillsScreen";
 import ReactVirtualizedTable from "./containers/GrillsTable";
 import ProgramsGrid from "./containers/ProgramsGrid";
 import CurrentUserContext, { CurrentUserProvider } from "./context/userContext";
+import Error404 from "./screens/404";
 
 //Compoents
 
@@ -31,14 +32,14 @@ const InitialRoutes = () => {
          <Router>
             {currentUser ? (
                <Routes>
-                  <Route path="/" element={<Login />} />
-                  <Route path="*" element={<Login />} />
+                  <Route path="*" element={<Error404 />} />
                   <Route path="/menu" element={<MiniDrawer />}>
                      <Route path="grills" element={<GrillsScreen />}>
                         <Route path="list" element={<ReactVirtualizedTable />} />
                         <Route path="programmation" element={<ProgramsGrid />} />
                         <Route path="import" element={<Import />} />
                      </Route>
+                     {currentUser.tipo_Usuario.administrador ? <Route path="users" element={<Import />} /> : <></>}
                   </Route>
                </Routes>
             ) : (
