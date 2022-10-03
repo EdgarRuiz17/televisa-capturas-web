@@ -7,12 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { deleteUserById, getAllProgrammations, getAllUsers } from "../backend/backendRequests";
+import { createNewUser, deleteUserById, getAllUsers } from "../backend/backendRequests";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import PreviewIcon from "@mui/icons-material/Preview";
 import { Button, Typography } from "@mui/material";
-import GrillsModal from "../components/GrillsModal";
 import AlertDialog from "../components/AlertDialog";
 import { useToken } from "../hooks/userTokenHook";
 import Box from "@mui/material/Box";
@@ -82,7 +80,41 @@ export default function UsersTable() {
          setAllUsers(usersResponseData);
       };
       getUsers();
-   }, [openDeleteAlert]);
+   }, [openDeleteAlert, openCreateModal]);
+
+   const handleAddUser = async () => {
+      if (!user.contrasena_Usuario || !user.nombre_Usuario || !user.tipo_Usuario) {
+         setMessageSnackBar("Faltan datos");
+         setSeveritySnackBar("warning");
+         setOpenSnackBar(true);
+         return;
+      }
+      let tipo = {
+         administrador: false,
+         usuario: false,
+         usuario_web: false,
+      };
+      if (user.tipo_Usuario === "Usuario Web") {
+         tipo["usuario_web"] = true;
+      } else if (user.tipo_Usuario === "Usuario de escritorio") {
+         tipo["usuario"] = true;
+      } else if (user.tipo_Usuario === "Administrador") {
+         tipo["administrador"] = true;
+      }
+      const createUserResponse = await createNewUser(token, user.nombre_Usuario, user.contrasena_Usuario, tipo);
+      if (createUserResponse.data) {
+         setMessageSnackBar("El usuario fué creado.");
+         setSeveritySnackBar("success");
+         setOpenSnackBar(true);
+      }
+      setUser({
+         _id: "",
+         nombre_Usuario: "",
+         contrasena_Usuario: "",
+         tipo_Usuario: "",
+      });
+      setOpenCreateModal(false);
+   };
 
    const handleDeleteUser = async (id: string) => {
       const deleteUserResponse = await deleteUserById(token, id);
@@ -91,6 +123,12 @@ export default function UsersTable() {
          setSeveritySnackBar("success");
          setOpenSnackBar(true);
       }
+      setUser({
+         _id: "",
+         nombre_Usuario: "",
+         contrasena_Usuario: "",
+         tipo_Usuario: "",
+      });
       setOpenDeleteAlert(false);
    };
 
@@ -173,8 +211,22 @@ export default function UsersTable() {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                />
-               <UsersModal isModify={true} open={openModifyModal} setOpen={setOpenModifyModal} onConfirm={() => {}} />
-               <UsersModal isModify={false} open={openCreateModal} setOpen={setOpenCreateModal} onConfirm={() => {}} />
+               <UsersModal
+                  isModify={true}
+                  open={openModifyModal}
+                  userInformation={user}
+                  setUserInformation={setUser}
+                  setOpen={setOpenModifyModal}
+                  onConfirm={() => {}}
+               />
+               <UsersModal
+                  isModify={false}
+                  open={openCreateModal}
+                  userInformation={user}
+                  setOpen={setOpenCreateModal}
+                  setUserInformation={setUser}
+                  onConfirm={handleAddUser}
+               />
                <AlertDialog
                   head={"¿Está seguro de que desea eliminar al usuario?"}
                   message={"Si se continúa, se eliminará todos los datos del usuario."}
