@@ -13,10 +13,10 @@ const router = Router();
 
 router
    .get("/verify", verify, verifyUserToken)
-   .get("/", getAllUsers)
-   .post("/add", addNewUser)
+   .get("/", verify, getAllUsers)
+   .post("/add", verify, addNewUser)
    .post("/login", logInUser)
-   .put("/update/:userId", updateUserById)
-   .delete("/delete/:userId", deleteUserById);
+   .put("/update/:userId", verify, updateUserById)
+   .delete("/delete/:userId", verify, deleteUserById);
 
 export default router;
