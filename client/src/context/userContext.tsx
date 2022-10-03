@@ -2,9 +2,9 @@ import * as React from "react";
 import { VerifyAuthUser } from "../backend/backendRequests";
 
 export type UserType = {
-   email: string;
-   password: string;
-   type: any;
+   nombre_Usuario: string;
+   contrasena_Usuario: string;
+   tipo_Usuario: any;
 };
 
 export type UserContext = {
@@ -35,7 +35,7 @@ export const CurrentUserProvider = ({ children }: ProviderProps) => {
 
    React.useEffect(() => {
       // setInterval(checkLogin, 40000);
-      setInterval(checkLogin, 20000);
+      setInterval(checkLogin, 30000);
       checkLogin();
    }, []);
 

@@ -44,10 +44,14 @@ export default function Login() {
             const permisos = userAuthResponse.data.tipo_Usuario;
             const token = userAuthResponse.data.token;
             localStorage.setItem("token", token);
-            setCurrentUser({ email: nombre_Usuario.value, password: contrasena_Usuario.value, type: permisos });
+            setCurrentUser({
+               nombre_Usuario: nombre_Usuario.value,
+               contrasena_Usuario: contrasena_Usuario.value,
+               tipo_Usuario: permisos,
+            });
             setTokenValidation(true);
             if (permisos.administrador) {
-               navigate("/admin");
+               navigate("/menu");
             } else if (permisos.usuario) {
                setError("ESTE USUARIO NO PUEDE ACCEDER A ESTE SISTEMA.");
             } else if (permisos.usuario_web) {
