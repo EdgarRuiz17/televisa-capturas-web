@@ -124,6 +124,7 @@ export default function StickyHeadTable() {
             message={"Si se continúa, se eliminará la programación y también los programas que este tenga."}
             open={openDeleteAlert}
             setOpen={setOpenDeleteAlert}
+            onConfirm={() => {}}
          />
       </Paper>
    );

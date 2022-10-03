@@ -11,7 +11,7 @@ const GrillsScreen = () => {
    return (
       <div>
          <Box sx={{ display: "flex" }}>
-            <Link to={"/menu/grills/list"}>
+            <Link to={"/menu/grills/list"} style={{ textDecoration: "none", color: "black" }}>
                <ListItemButton
                   sx={{
                      maxWidth: 200,
@@ -32,7 +32,7 @@ const GrillsScreen = () => {
                   <ListItemText primary={"Ver todo"} />
                </ListItemButton>
             </Link>
-            <Link to={"/menu/grills/import"}>
+            <Link to={"/menu/grills/import"} style={{ textDecoration: "none", color: "black" }}>
                <ListItemButton
                   sx={{
                      maxWidth: 200,
@@ -53,7 +53,7 @@ const GrillsScreen = () => {
                   <ListItemText primary={"Importar Parrilla"} />
                </ListItemButton>
             </Link>
-            <Link to={"/menu/grills/programmation"}>
+            <Link to={"/menu/grills/programmation"} style={{ textDecoration: "none", color: "black" }}>
                <ListItemButton
                   sx={{
                      maxWidth: 200,

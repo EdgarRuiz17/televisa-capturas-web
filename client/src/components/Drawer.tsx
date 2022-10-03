@@ -25,6 +25,7 @@ import TokenExpiredModal from "./TokenExpiredModal";
 import CurrentUserContext from "../context/userContext";
 import { LoadingButton } from "@mui/lab";
 import LoadingModal from "./LoadingModal";
+import AlertDialog from "./AlertDialog";
 
 const drawerWidth = 240;
 
@@ -99,7 +100,8 @@ export default function MiniDrawer() {
    const theme = useTheme();
    const [open, setOpen] = React.useState(false);
    const [openMenu, setOpenMenu] = React.useState(false);
-   const { authIsLoading } = React.useContext(CurrentUserContext);
+   const { authIsLoading, handleLogout } = React.useContext(CurrentUserContext);
+   const [openLogoutModal, setOpenLogoutModal] = React.useState(false);
 
    const handleDrawerOpen = () => {
       setOpen(true);
@@ -159,7 +161,7 @@ export default function MiniDrawer() {
                </ListItemButton>
 
                <ListItem key={"text"} disablePadding sx={{ display: "block" }}>
-                  <Link to={"/menu/grills/list"}>
+                  <Link to={"/menu/grills/list"} style={{ textDecoration: "none", color: "black" }}>
                      <ListItemButton
                         sx={{
                            minHeight: 48,
@@ -204,26 +206,25 @@ export default function MiniDrawer() {
             <Box sx={{ position: "absolute", bottom: "0%", rigth: "0%", width: "100%" }}>
                <Divider />
                <ListItem key={"text"} disablePadding sx={{ display: "block" }}>
-                  <Link to={"/menu/grills/list"}>
-                     <ListItemButton
+                  <ListItemButton
+                     sx={{
+                        minHeight: 48,
+                        justifyContent: open ? "initial" : "center",
+                        px: 2.5,
+                     }}
+                     onClick={() => setOpenLogoutModal(true)}
+                  >
+                     <ListItemIcon
                         sx={{
-                           minHeight: 48,
-                           justifyContent: open ? "initial" : "center",
-                           px: 2.5,
+                           minWidth: 0,
+                           mr: open ? 3 : "auto",
+                           justifyContent: "center",
                         }}
                      >
-                        <ListItemIcon
-                           sx={{
-                              minWidth: 0,
-                              mr: open ? 3 : "auto",
-                              justifyContent: "center",
-                           }}
-                        >
-                           <LogoutIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Cerrar sesión"} sx={{ opacity: open ? 1 : 0 }} />
-                     </ListItemButton>
-                  </Link>
+                        <LogoutIcon />
+                     </ListItemIcon>
+                     <ListItemText primary={"Cerrar sesión"} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
                </ListItem>
             </Box>
          </Drawer>
@@ -233,6 +234,13 @@ export default function MiniDrawer() {
          </Box>
          {/* <TokenExpiredModal open={tokenValidation ? false : true} /> */}
          <LoadingModal open={authIsLoading} />
+         <AlertDialog
+            open={openLogoutModal}
+            setOpen={setOpenLogoutModal}
+            head={"Cerrar sesión"}
+            message={"Esta seguro que desea cerrar sesión?"}
+            onConfirm={handleLogout}
+         />
       </Box>
    );
 }

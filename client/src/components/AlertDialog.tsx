@@ -13,6 +13,8 @@ interface SimpleDialogProps {
    // Data
    head: string;
    message: string;
+   //Functions
+   onConfirm: () => void;
 }
 
 export default function AlertDialog(props: SimpleDialogProps) {
@@ -36,7 +38,7 @@ export default function AlertDialog(props: SimpleDialogProps) {
             <Divider />
             <DialogActions>
                <Button onClick={handleClose}>Cancelar</Button>
-               <Button onClick={handleClose} autoFocus>
+               <Button onClick={props.onConfirm} autoFocus>
                   Aceptar
                </Button>
             </DialogActions>
