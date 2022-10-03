@@ -35,6 +35,17 @@ export const VerifyAuthUser = async (token: string) => {
    return await axios.get(`${LOCALROUTE}${USERS}${VERIFY}`, headers);
 };
 
+// Users calls
+
+export const getAllUsers = async (token: string) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.get(`${LOCALROUTE}${USERS}/`, headers);
+};
+
 //Programmation calls
 
 export const getAllProgrammations = async () => {

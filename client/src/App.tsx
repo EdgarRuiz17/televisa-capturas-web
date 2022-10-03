@@ -10,6 +10,7 @@ import ReactVirtualizedTable from "./containers/GrillsTable";
 import ProgramsGrid from "./containers/ProgramsGrid";
 import CurrentUserContext, { CurrentUserProvider } from "./context/userContext";
 import Error404 from "./screens/404";
+import UsersTable from "./containers/UsersTable";
 
 //Compoents
 
@@ -39,7 +40,7 @@ const InitialRoutes = () => {
                         <Route path="programmation" element={<ProgramsGrid />} />
                         <Route path="import" element={<Import />} />
                      </Route>
-                     {currentUser.tipo_Usuario.administrador ? <Route path="users" element={<Import />} /> : <></>}
+                     {currentUser.tipo_Usuario.administrador ? <Route path="users" element={<UsersTable />} /> : <></>}
                   </Route>
                </Routes>
             ) : (
