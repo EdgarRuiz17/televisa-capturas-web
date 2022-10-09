@@ -74,6 +74,26 @@ export const createNewUser = async (
    return await axios.post(`${LOCALROUTE}${USERS}${ADD}`, payload, headers);
 };
 
+export const modifyUserById = async (
+   token: string,
+   nombre_Usuario: string,
+   contrasena_Usuario: string,
+   tipo_Usuario: any,
+   id: string
+) => {
+   const payload = {
+      nombre_Usuario,
+      contrasena_Usuario,
+      tipo_Usuario,
+   };
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.put(`${LOCALROUTE}${USERS}${UPDATE}/${id}`, payload, headers);
+};
+
 //Programmation calls
 
 export const getAllProgrammations = async () => {
