@@ -1,5 +1,6 @@
 import Users from "../models/Users";
 import * as jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
 import { SECRET } from "../settings/llaves";
 import { Request, Response } from "express";
 
@@ -98,12 +99,22 @@ export const logInUser = (req: Request, res: Response) => {
    });
 };
 
-export const updateUserById = (req: Request, res: Response) => {
+export const updateUserById = async (req: Request, res: Response) => {
    const { userId } = req.params;
 
-   Users.findOneAndUpdate({ _id: userId }, req.body, function (err, updatedUser) {
-      if (err) return res.status(500).send("User not found");
-      return res.status(200).send("User updated successfully");
+   const UserToModify = await Users.findOne({ _id: userId });
+   if (!UserToModify) return res.status(500).send("User not found");
+
+   UserToModify.$set(req.body);
+
+   UserToModify.markModified("UPDATED");
+
+   UserToModify.save((err) => {
+      if (err) {
+         res.status(200).send("Name already in use");
+      } else {
+         res.status(202).send("User updated successfully");
+      }
    });
 };
 
