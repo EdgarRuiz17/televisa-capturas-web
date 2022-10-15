@@ -28,15 +28,13 @@ export const addNewProgram = async (req: Request, res: Response) => {
 
 export const updateProgramStatusById = async (req: Request, res: Response) => {
    const { programId } = req.params;
-
-   await Programs.findOneAndUpdate(
+   console.log(programId);
+   const update = await Programs.findOneAndUpdate(
       { _id: programId },
-      { $pull: { status: req.body } },
-      { new: true },
-      function (err, programUpdated) {
-         if (err) res.status(500).send(programUpdated);
-      }
+      { $set: { programa_Estatus: req.body } },
+      { new: true }
    );
+   if (update) return res.status(200).send("Ok");
 };
 
 export const updateProgramById = async (req: Request, res: Response) => {
