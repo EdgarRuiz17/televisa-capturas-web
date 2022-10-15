@@ -9,7 +9,9 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { Button, Grid } from "@mui/material";
-import { getLatestProgrammation } from "../backend/backendRequests";
+import { getLatestProgrammation, getProgrammationById } from "../backend/backendRequests";
+import { useParams } from "react-router-dom";
+import { useToken } from "../hooks/userTokenHook";
 
 const headCells = [
    {
@@ -73,18 +75,31 @@ function EnhancedTableHead() {
 }
 
 export default function ProgramsGrid() {
+   const { programId } = useParams();
    const [data, setData] = React.useState();
    const [programs, setPrograms] = React.useState();
+   const token = useToken();
 
    React.useEffect(() => {
-      const getLatestProgrammationAndPrograms = async () => {
-         const programmationsResponse = await getLatestProgrammation();
-         const programmationsResponseData = programmationsResponse.data;
-         console.log(programmationsResponseData);
-         setData(programmationsResponseData);
-         getHeightByTime(programmationsResponseData.semana_Programas);
-      };
-      getLatestProgrammationAndPrograms();
+      if (programId) {
+         const fetchProgrammationAndProgramsById = async () => {
+            const programmationsResponse = await getProgrammationById(token, programId);
+            const programmationsResponseData = programmationsResponse.data;
+            console.log(programmationsResponseData);
+            setData(programmationsResponseData);
+            getHeightByTime(programmationsResponseData.semana_Programas);
+         };
+         fetchProgrammationAndProgramsById();
+      } else {
+         const fetchLatestProgrammationAndPrograms = async () => {
+            const programmationsResponse = await getLatestProgrammation();
+            const programmationsResponseData = programmationsResponse.data;
+            console.log(programmationsResponseData);
+            setData(programmationsResponseData);
+            getHeightByTime(programmationsResponseData.semana_Programas);
+         };
+         fetchLatestProgrammationAndPrograms();
+      }
    }, []);
 
    const getHeightByTime = (data) => {

@@ -53,7 +53,7 @@ const GrillsScreen = () => {
                   <ListItemText primary={"Importar Parrilla"} />
                </ListItemButton>
             </Link>
-            <Link to={"/menu/grills/programmation"} style={{ textDecoration: "none", color: "black" }}>
+            <Link to={"/menu/grills/programmation/last"} style={{ textDecoration: "none", color: "black" }}>
                <ListItemButton
                   sx={{
                      maxWidth: 200,

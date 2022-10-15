@@ -96,10 +96,24 @@ export const modifyUserById = async (
 
 //Programmation calls
 
-export const getAllProgrammations = async () => {
-   return await axios.get(`${LOCALROUTE}${PROGRAMMATIONS}${LIST}`);
+export const getAllProgrammations = async (token: string) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.get(`${LOCALROUTE}${PROGRAMMATIONS}${LIST}`, headers);
 };
 
 export const getLatestProgrammation = async () => {
    return await axios.get(`${LOCALROUTE}${PROGRAMMATIONS}${LATEST}`);
+};
+
+export const getProgrammationById = async (token: string, id: string) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.get(`${LOCALROUTE}${PROGRAMMATIONS}/programs/${id}`, headers);
 };
