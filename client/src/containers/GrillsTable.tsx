@@ -14,6 +14,8 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import { Button, Typography } from "@mui/material";
 import GrillsModal from "../components/GrillsModal";
 import AlertDialog from "../components/AlertDialog";
+import { Link } from "react-router-dom";
+import { useToken } from "../hooks/userTokenHook";
 
 interface Data {
    fecha: string;
@@ -40,14 +42,15 @@ export default function StickyHeadTable() {
    const [page, setPage] = React.useState(0);
    const [rowsPerPage, setRowsPerPage] = React.useState(5);
    const [programmations, setProgrammations] = React.useState([]);
+   const token = useToken();
 
    const rows = programmations.map((programmation: any) => {
-      return createData(programmation.semana_Inicio, programmation.semana_Fin, programmation.id);
+      return createData(programmation.semana_Inicio, programmation.semana_Fin, programmation._id);
    });
 
    React.useEffect(() => {
       const getProgrammations = async () => {
-         const programmationsResponse = await getAllProgrammations();
+         const programmationsResponse = await getAllProgrammations(token);
          const programmationsResponseData = programmationsResponse.data;
          console.log(programmationsResponseData);
          setProgrammations(programmationsResponseData);
@@ -89,9 +92,11 @@ export default function StickyHeadTable() {
                               <Typography sx={{ fontSize: "17px" }}>{row.fecha}</Typography>
                            </TableCell>
                            <TableCell>
-                              <Button>
-                                 <PreviewIcon />
-                              </Button>
+                              <Link to={`/menu/grills/programmation/${row.id}`}>
+                                 <Button>
+                                    <PreviewIcon />
+                                 </Button>
+                              </Link>
                            </TableCell>
                            <TableCell>
                               <Button onClick={() => handleOpen()}>

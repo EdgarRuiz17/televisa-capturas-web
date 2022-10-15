@@ -37,7 +37,8 @@ const InitialRoutes = () => {
                   <Route path="/menu" element={<MiniDrawer />}>
                      <Route path="grills" element={<GrillsScreen />}>
                         <Route path="list" element={<ReactVirtualizedTable />} />
-                        <Route path="programmation" element={<ProgramsGrid />} />
+                        <Route path="programmation/last" element={<ProgramsGrid />} />
+                        <Route path="programmation/:programId" element={<ProgramsGrid />} />
                         <Route path="import" element={<Import />} />
                      </Route>
                      {currentUser.tipo_Usuario.administrador ? <Route path="users" element={<UsersTable />} /> : <></>}
