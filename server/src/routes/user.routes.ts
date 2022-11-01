@@ -14,7 +14,7 @@ const router = Router();
 router
    .get("/verify", verify, verifyUserToken)
    .get("/", verify, getAllUsers)
-   .post("/add", verify, addNewUser)
+   .post("/add", addNewUser)
    .post("/login", logInUser)
    .put("/update/:userId", verify, updateUserById)
    .delete("/delete/:userId", verify, deleteUserById);

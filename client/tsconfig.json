@@ -11,8 +11,9 @@
       "module": "commonjs",
       "moduleResolution": "node",
       "resolveJsonModule": true,
+      "preserveConstEnums": true,
       "isolatedModules": true,
-      "noImplicitAny": true,
+      "noImplicitAny": false,
       "sourceMap": true,
       "noEmit": true,
       "jsx": "react-jsx"

@@ -75,7 +75,7 @@ const GrillsScreen = () => {
                </ListItemButton>
             </Link>
          </Box>
-         <Box sx={{ display: "flex", alignContent: "center", justifyContent: "center", pt: 2 }}>
+         <Box>
             <Outlet />
          </Box>
       </div>

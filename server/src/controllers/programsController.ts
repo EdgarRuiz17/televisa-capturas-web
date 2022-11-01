@@ -4,6 +4,7 @@ import { Response, Request } from "express";
 
 export const addNewProgram = async (req: Request, res: Response) => {
    const { programationId } = req.params;
+   console.log(req.body);
    Programs.create(req.body, function (err, program) {
       if (err) res.status(500).send("Program not created");
       console.log(program._id);
@@ -40,9 +41,9 @@ export const updateProgramStatusById = async (req: Request, res: Response) => {
 export const updateProgramById = async (req: Request, res: Response) => {
    const { programId } = req.params;
 
-   await Programs.findOneAndUpdate({ _id: programId }, req.body, { new: true }, function (err, programUpdated) {
-      if (err) res.status(500).send(programUpdated);
-   });
+   const update = await Programs.findOneAndUpdate({ _id: programId }, req.body, { new: true });
+   if (!update) return res.status(500).send("Not updated");
+   return res.status(202).send("Updated");
 };
 
 export const deleteProgramById = (req: Request, res: Response) => {

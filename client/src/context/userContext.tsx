@@ -35,7 +35,7 @@ export const CurrentUserProvider = ({ children }: ProviderProps) => {
 
    React.useEffect(() => {
       // setInterval(checkLogin, 40000);
-      setInterval(checkLogin, 30000);
+      // setInterval(checkLogin, 30000);
       checkLogin();
    }, []);
 
