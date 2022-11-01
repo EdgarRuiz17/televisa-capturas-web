@@ -6,8 +6,8 @@ interface Programs {
    programa_Subnombre: string;
    programa_Tipo: string;
    programa_Calidad: string;
-   hora_Inicio: string;
-   hora_Fin: string;
+   hora_Inicio: Date;
+   hora_Fin: Date;
    programmation: Schema.Types.ObjectId;
    programa_Estatus: object;
 }
@@ -15,7 +15,7 @@ interface Programs {
 const programsSchema = new Schema({
    programa_Dia: {
       type: Number,
-      required: true,
+      required: false,
    },
    programa_Nombre: {
       type: String,
@@ -38,11 +38,11 @@ const programsSchema = new Schema({
       trim: true,
    },
    hora_Inicio: {
-      type: String,
+      type: Date,
       required: true,
    },
    hora_Fin: {
-      type: String,
+      type: Date,
       required: true,
    },
    programmation: {

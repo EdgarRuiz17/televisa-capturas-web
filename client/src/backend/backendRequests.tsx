@@ -96,6 +96,15 @@ export const modifyUserById = async (
 
 //Programmation calls
 
+export const createNewProgrammation = async (token: string, data: object) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.post(`${LOCALROUTE}${PROGRAMMATIONS}${ADD}`, data, headers);
+};
+
 export const getAllProgrammations = async (token: string) => {
    const headers = {
       headers: {
@@ -116,4 +125,66 @@ export const getProgrammationById = async (token: string, id: string) => {
       },
    };
    return await axios.get(`${LOCALROUTE}${PROGRAMMATIONS}/programs/${id}`, headers);
+};
+
+// Programs Calls
+
+export const createNewProgram = async (
+   token: string,
+   data: object,
+   id_programation: string
+   // id_programacion: string,
+   // programa_Nombre: string,
+   // programa_Tipo: string,
+   // programa_Calidad: string,
+   // hora_Inicio: Date,
+   // hora_Fin: Date
+) => {
+   // console.log(hora_Inicio);
+   // const payload = {
+   //    programa_Nombre,
+   //    programa_Tipo,
+   //    programa_Calidad,
+   //    hora_Inicio,
+   //    hora_Fin,
+   // };
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.post(`${LOCALROUTE}${PROGRAMS}/add/${id_programation}`, data, headers);
+};
+
+export const deleteProgram = async (token: string, idToDelete: string) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.delete(`${LOCALROUTE}${PROGRAMS}/delete/${idToDelete}`, headers);
+};
+
+export const modifyProgram = async (
+   token: string,
+   idToModify: string,
+   programa_Nombre: string,
+   programa_Tipo: string,
+   programa_Calidad: string,
+   hora_Inicio: Date,
+   hora_Fin: Date
+) => {
+   const payload = {
+      programa_Nombre,
+      programa_Tipo,
+      programa_Calidad,
+      hora_Inicio,
+      hora_Fin,
+   };
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.put(`${LOCALROUTE}${PROGRAMS}/update/${idToModify}`, payload, headers);
 };

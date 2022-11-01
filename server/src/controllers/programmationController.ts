@@ -32,10 +32,9 @@ export const getProgrammationById = async (req: Request, res: Response) => {
 export const createNewProgrammation = async (req: Request, res: Response) => {
    console.log(req.body);
 
-   await Programmation.create(req.body, function (err, creado) {
-      if (err) res.status(500).send("Something went wrong");
-      res.status(200).send("Programmation created successfully");
-   });
+   const createdProgrammation = await Programmation.create(req.body);
+   if (!createdProgrammation) res.status(500).send("Something went wrong");
+   res.status(200).send(createdProgrammation);
 };
 
 export const deleteProgrammationById = async (req: Request, res: Response) => {

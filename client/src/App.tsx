@@ -6,11 +6,12 @@ import Login from "./screens/Login";
 import Import from "./screens/Import";
 import MiniDrawer from "./components/Drawer";
 import GrillsScreen from "./screens/GrillsScreen";
-import ReactVirtualizedTable from "./containers/GrillsTable";
+import ReactVirtualizedTable from "./containers/ProgrammationsTable";
 import ProgramsGrid from "./containers/ProgramsGrid";
 import CurrentUserContext, { CurrentUserProvider } from "./context/userContext";
 import Error404 from "./screens/404";
 import UsersTable from "./containers/UsersTable";
+import Calendar from "./containers/ProgramsScheduler";
 
 //Compoents
 
@@ -37,12 +38,13 @@ const InitialRoutes = () => {
                   <Route path="/menu" element={<MiniDrawer />}>
                      <Route path="grills" element={<GrillsScreen />}>
                         <Route path="list" element={<ReactVirtualizedTable />} />
-                        <Route path="programmation/last" element={<ProgramsGrid />} />
-                        <Route path="programmation/:programId" element={<ProgramsGrid />} />
+                        <Route path="programmation/last" element={<Calendar />} />
+                        <Route path="programmation/:programId" element={<Calendar />} />
                         <Route path="import" element={<Import />} />
                      </Route>
                      {currentUser.tipo_Usuario.administrador ? <Route path="users" element={<UsersTable />} /> : <></>}
                   </Route>
+                  <Route path="test" element={<Calendar />} />
                </Routes>
             ) : (
                <Routes>

@@ -233,288 +233,290 @@ export default function ProgramsGrid() {
                </Table>
             </TableContainer>
 
-            <Grid container spacing={{ xs: 5, md: 24 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-               <Grid item xs={1} container direction="column">
-                  {programs ? (
-                     <>
-                        {programs.dia1.map((program) => {
-                           return (
-                              <Button
-                                 sx={{
-                                    width: "170px",
-                                    height: program.height,
-                                    bgcolor: "white",
-                                    border: "solid",
-                                    borderColor: "black",
-                                    borderWidth: "1px",
-                                 }}
-                              >
-                                 {program.height < 90 ? (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Grid direction="row">
+            <Box sx={{ overflow: "scroll" }}>
+               <Grid container spacing={{ xs: 5, md: 24 }} columns={{ xs: 4, sm: 8, md: 12 }} sx={{ maxHeight: 800 }}>
+                  <Grid item xs={1} container direction="column">
+                     {programs ? (
+                        <>
+                           {programs.dia1.map((program) => {
+                              return (
+                                 <Button
+                                    sx={{
+                                       width: "170px",
+                                       height: program.height,
+                                       bgcolor: "white",
+                                       border: "solid",
+                                       borderColor: "black",
+                                       borderWidth: "1px",
+                                    }}
+                                 >
+                                    {program.height < 90 ? (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
+                                          <Grid direction="row">
+                                             <Typography variant="h8">{program.hora_Inicio}</Typography>
+                                             <Typography variant="h8"> - </Typography>
+                                             <Typography variant="h8">{program.hora_Fin}</Typography>
+                                          </Grid>
+                                       </Grid>
+                                    ) : (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
                                           <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                          <Typography variant="h8"> - </Typography>
+                                          <Typography variant="h8">-</Typography>
                                           <Typography variant="h8">{program.hora_Fin}</Typography>
                                        </Grid>
-                                    </Grid>
-                                 ) : (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                       <Typography variant="h8">-</Typography>
-                                       <Typography variant="h8">{program.hora_Fin}</Typography>
-                                    </Grid>
-                                 )}
-                              </Button>
-                           );
-                        })}
-                     </>
-                  ) : (
-                     <></>
-                  )}
-               </Grid>
-               <Grid item xs={1} container direction="column">
-                  {programs ? (
-                     <>
-                        {programs.dia2.map((program) => {
-                           return (
-                              <Button
-                                 sx={{
-                                    width: "170px",
-                                    height: program.height,
-                                    bgcolor: "white",
-                                    border: "solid",
-                                    borderColor: "black",
-                                    borderWidth: "1px",
-                                 }}
-                              >
-                                 {program.height < 90 ? (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Grid direction="row">
+                                    )}
+                                 </Button>
+                              );
+                           })}
+                        </>
+                     ) : (
+                        <></>
+                     )}
+                  </Grid>
+                  <Grid item xs={1} container direction="column">
+                     {programs ? (
+                        <>
+                           {programs.dia2.map((program) => {
+                              return (
+                                 <Button
+                                    sx={{
+                                       width: "170px",
+                                       height: program.height,
+                                       bgcolor: "white",
+                                       border: "solid",
+                                       borderColor: "black",
+                                       borderWidth: "1px",
+                                    }}
+                                 >
+                                    {program.height < 90 ? (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
+                                          <Grid direction="row">
+                                             <Typography variant="h8">{program.hora_Inicio}</Typography>
+                                             <Typography variant="h8"> - </Typography>
+                                             <Typography variant="h8">{program.hora_Fin}</Typography>
+                                          </Grid>
+                                       </Grid>
+                                    ) : (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
                                           <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                          <Typography variant="h8"> - </Typography>
+                                          <Typography variant="h8">-</Typography>
                                           <Typography variant="h8">{program.hora_Fin}</Typography>
                                        </Grid>
-                                    </Grid>
-                                 ) : (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                       <Typography variant="h8">-</Typography>
-                                       <Typography variant="h8">{program.hora_Fin}</Typography>
-                                    </Grid>
-                                 )}
-                              </Button>
-                           );
-                        })}
-                     </>
-                  ) : (
-                     <></>
-                  )}
-               </Grid>
-               <Grid item xs={1} container direction="column">
-                  {programs ? (
-                     <>
-                        {programs.dia3.map((program) => {
-                           return (
-                              <Button
-                                 sx={{
-                                    width: "170px",
-                                    height: program.height,
-                                    bgcolor: "white",
-                                    border: "solid",
-                                    borderColor: "black",
-                                    borderWidth: "1px",
-                                 }}
-                              >
-                                 {program.height < 90 ? (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Grid direction="row">
+                                    )}
+                                 </Button>
+                              );
+                           })}
+                        </>
+                     ) : (
+                        <></>
+                     )}
+                  </Grid>
+                  <Grid item xs={1} container direction="column">
+                     {programs ? (
+                        <>
+                           {programs.dia3.map((program) => {
+                              return (
+                                 <Button
+                                    sx={{
+                                       width: "170px",
+                                       height: program.height,
+                                       bgcolor: "white",
+                                       border: "solid",
+                                       borderColor: "black",
+                                       borderWidth: "1px",
+                                    }}
+                                 >
+                                    {program.height < 90 ? (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
+                                          <Grid direction="row">
+                                             <Typography variant="h8">{program.hora_Inicio}</Typography>
+                                             <Typography variant="h8"> - </Typography>
+                                             <Typography variant="h8">{program.hora_Fin}</Typography>
+                                          </Grid>
+                                       </Grid>
+                                    ) : (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
                                           <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                          <Typography variant="h8"> - </Typography>
+                                          <Typography variant="h8">-</Typography>
                                           <Typography variant="h8">{program.hora_Fin}</Typography>
                                        </Grid>
-                                    </Grid>
-                                 ) : (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                       <Typography variant="h8">-</Typography>
-                                       <Typography variant="h8">{program.hora_Fin}</Typography>
-                                    </Grid>
-                                 )}
-                              </Button>
-                           );
-                        })}
-                     </>
-                  ) : (
-                     <></>
-                  )}
-               </Grid>
-               <Grid item xs={1} container direction="column">
-                  {programs ? (
-                     <>
-                        {programs.dia4.map((program) => {
-                           return (
-                              <Button
-                                 sx={{
-                                    width: "170px",
-                                    height: program.height,
-                                    bgcolor: "white",
-                                    border: "solid",
-                                    borderColor: "black",
-                                    borderWidth: "1px",
-                                 }}
-                              >
-                                 {program.height < 90 ? (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Grid direction="row">
+                                    )}
+                                 </Button>
+                              );
+                           })}
+                        </>
+                     ) : (
+                        <></>
+                     )}
+                  </Grid>
+                  <Grid item xs={1} container direction="column">
+                     {programs ? (
+                        <>
+                           {programs.dia4.map((program) => {
+                              return (
+                                 <Button
+                                    sx={{
+                                       width: "170px",
+                                       height: program.height,
+                                       bgcolor: "white",
+                                       border: "solid",
+                                       borderColor: "black",
+                                       borderWidth: "1px",
+                                    }}
+                                 >
+                                    {program.height < 90 ? (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
+                                          <Grid direction="row">
+                                             <Typography variant="h8">{program.hora_Inicio}</Typography>
+                                             <Typography variant="h8"> - </Typography>
+                                             <Typography variant="h8">{program.hora_Fin}</Typography>
+                                          </Grid>
+                                       </Grid>
+                                    ) : (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
                                           <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                          <Typography variant="h8"> - </Typography>
+                                          <Typography variant="h8">-</Typography>
                                           <Typography variant="h8">{program.hora_Fin}</Typography>
                                        </Grid>
-                                    </Grid>
-                                 ) : (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                       <Typography variant="h8">-</Typography>
-                                       <Typography variant="h8">{program.hora_Fin}</Typography>
-                                    </Grid>
-                                 )}
-                              </Button>
-                           );
-                        })}
-                     </>
-                  ) : (
-                     <></>
-                  )}
-               </Grid>
-               <Grid item xs={1} container direction="column">
-                  {programs ? (
-                     <>
-                        {programs.dia5.map((program) => {
-                           return (
-                              <Button
-                                 sx={{
-                                    width: "170px",
-                                    height: program.height,
-                                    bgcolor: "white",
-                                    border: "solid",
-                                    borderColor: "black",
-                                    borderWidth: "1px",
-                                 }}
-                              >
-                                 {program.height < 90 ? (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Grid direction="row">
+                                    )}
+                                 </Button>
+                              );
+                           })}
+                        </>
+                     ) : (
+                        <></>
+                     )}
+                  </Grid>
+                  <Grid item xs={1} container direction="column">
+                     {programs ? (
+                        <>
+                           {programs.dia5.map((program) => {
+                              return (
+                                 <Button
+                                    sx={{
+                                       width: "170px",
+                                       height: program.height,
+                                       bgcolor: "white",
+                                       border: "solid",
+                                       borderColor: "black",
+                                       borderWidth: "1px",
+                                    }}
+                                 >
+                                    {program.height < 90 ? (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
+                                          <Grid direction="row">
+                                             <Typography variant="h8">{program.hora_Inicio}</Typography>
+                                             <Typography variant="h8"> - </Typography>
+                                             <Typography variant="h8">{program.hora_Fin}</Typography>
+                                          </Grid>
+                                       </Grid>
+                                    ) : (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
                                           <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                          <Typography variant="h8"> - </Typography>
+                                          <Typography variant="h8">-</Typography>
                                           <Typography variant="h8">{program.hora_Fin}</Typography>
                                        </Grid>
-                                    </Grid>
-                                 ) : (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                       <Typography variant="h8">-</Typography>
-                                       <Typography variant="h8">{program.hora_Fin}</Typography>
-                                    </Grid>
-                                 )}
-                              </Button>
-                           );
-                        })}
-                     </>
-                  ) : (
-                     <></>
-                  )}
-               </Grid>
-               <Grid item xs={1} container direction="column">
-                  {programs ? (
-                     <>
-                        {programs.dia6.map((program) => {
-                           return (
-                              <Button
-                                 sx={{
-                                    width: "170px",
-                                    height: program.height,
-                                    bgcolor: "white",
-                                    border: "solid",
-                                    borderColor: "black",
-                                    borderWidth: "1px",
-                                 }}
-                              >
-                                 {program.height < 90 ? (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Grid direction="row">
+                                    )}
+                                 </Button>
+                              );
+                           })}
+                        </>
+                     ) : (
+                        <></>
+                     )}
+                  </Grid>
+                  <Grid item xs={1} container direction="column">
+                     {programs ? (
+                        <>
+                           {programs.dia6.map((program) => {
+                              return (
+                                 <Button
+                                    sx={{
+                                       width: "170px",
+                                       height: program.height,
+                                       bgcolor: "white",
+                                       border: "solid",
+                                       borderColor: "black",
+                                       borderWidth: "1px",
+                                    }}
+                                 >
+                                    {program.height < 90 ? (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
+                                          <Grid direction="row">
+                                             <Typography variant="h8">{program.hora_Inicio}</Typography>
+                                             <Typography variant="h8"> - </Typography>
+                                             <Typography variant="h8">{program.hora_Fin}</Typography>
+                                          </Grid>
+                                       </Grid>
+                                    ) : (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
                                           <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                          <Typography variant="h8"> - </Typography>
+                                          <Typography variant="h8">-</Typography>
                                           <Typography variant="h8">{program.hora_Fin}</Typography>
                                        </Grid>
-                                    </Grid>
-                                 ) : (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                       <Typography variant="h8">-</Typography>
-                                       <Typography variant="h8">{program.hora_Fin}</Typography>
-                                    </Grid>
-                                 )}
-                              </Button>
-                           );
-                        })}
-                     </>
-                  ) : (
-                     <></>
-                  )}
-               </Grid>
-               <Grid item xs={1} container direction="column">
-                  {programs ? (
-                     <>
-                        {programs.dia7.map((program) => {
-                           return (
-                              <Button
-                                 sx={{
-                                    width: "170px",
-                                    height: program.height,
-                                    bgcolor: "white",
-                                    border: "solid",
-                                    borderColor: "black",
-                                    borderWidth: "1px",
-                                 }}
-                              >
-                                 {program.height < 90 ? (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Grid direction="row">
+                                    )}
+                                 </Button>
+                              );
+                           })}
+                        </>
+                     ) : (
+                        <></>
+                     )}
+                  </Grid>
+                  <Grid item xs={1} container direction="column">
+                     {programs ? (
+                        <>
+                           {programs.dia7.map((program) => {
+                              return (
+                                 <Button
+                                    sx={{
+                                       width: "170px",
+                                       height: program.height,
+                                       bgcolor: "white",
+                                       border: "solid",
+                                       borderColor: "black",
+                                       borderWidth: "1px",
+                                    }}
+                                 >
+                                    {program.height < 90 ? (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
+                                          <Grid direction="row">
+                                             <Typography variant="h8">{program.hora_Inicio}</Typography>
+                                             <Typography variant="h8"> - </Typography>
+                                             <Typography variant="h8">{program.hora_Fin}</Typography>
+                                          </Grid>
+                                       </Grid>
+                                    ) : (
+                                       <Grid item container xs direction="column">
+                                          <Typography variant="h7">{program.programa_Nombre}</Typography>
                                           <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                          <Typography variant="h8"> - </Typography>
+                                          <Typography variant="h8">-</Typography>
                                           <Typography variant="h8">{program.hora_Fin}</Typography>
                                        </Grid>
-                                    </Grid>
-                                 ) : (
-                                    <Grid item container xs direction="column">
-                                       <Typography variant="h7">{program.programa_Nombre}</Typography>
-                                       <Typography variant="h8">{program.hora_Inicio}</Typography>
-                                       <Typography variant="h8">-</Typography>
-                                       <Typography variant="h8">{program.hora_Fin}</Typography>
-                                    </Grid>
-                                 )}
-                              </Button>
-                           );
-                        })}
-                     </>
-                  ) : (
-                     <></>
-                  )}
+                                    )}
+                                 </Button>
+                              );
+                           })}
+                        </>
+                     ) : (
+                        <></>
+                     )}
+                  </Grid>
                </Grid>
-            </Grid>
+            </Box>
          </Paper>
       </Box>
    );
