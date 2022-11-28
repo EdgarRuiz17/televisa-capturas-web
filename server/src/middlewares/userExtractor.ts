@@ -33,6 +33,7 @@ function verify(req: any, res: Response, next: NextFunction) {
                valido: true,
                mensaje: "Token valido.",
                user_data: {
+                  _id: decoded._id,
                   nombre_Usuario: decoded.nombre_Usuario,
                   contrasena_Usuario: decoded.contrasena_Usuario,
                   tipo_Usuario: decoded.tipo_Usuario,

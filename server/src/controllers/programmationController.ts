@@ -23,7 +23,13 @@ export const getLatestProgrammation = async (req: Request, res: Response) => {
 export const getProgrammationById = async (req: Request, res: Response) => {
    const { programId } = req.params;
    await Programmation.findOne({ _id: programId })
-      .populate("semana_Programas", "")
+      .populate({
+         path: "semana_Programas",
+         populate: {
+            path: "userLogs",
+            model: "UserLogs",
+         },
+      })
       .then(function (programs) {
          res.status(200).send(programs);
       });
