@@ -9,7 +9,15 @@ interface Programs {
    hora_Inicio: Date;
    hora_Fin: Date;
    programmation: Schema.Types.ObjectId;
-   programa_Estatus: object;
+   programa_Estatus: Estatus;
+   programa_Referencia: string;
+   userLogs: Schema.Types.ObjectId;
+}
+
+interface Estatus {
+   Calificado: boolean;
+   Referencia: boolean;
+   Master: boolean;
 }
 
 const programsSchema = new Schema({
@@ -65,6 +73,14 @@ const programsSchema = new Schema({
          required: true,
          default: false,
       },
+   },
+   programa_Referencia: {
+      type: String,
+      required: false,
+   },
+   userLogs: {
+      type: Schema.Types.ObjectId,
+      ref: "UserLogs",
    },
 });
 

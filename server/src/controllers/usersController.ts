@@ -69,7 +69,9 @@ export const logInUser = (req: Request, res: Response) => {
                });
             } else if (result) {
                const tipo_Usuario = user.tipo_Usuario;
+               const _id = user._id;
                const usuario = {
+                  _id,
                   nombre_Usuario,
                   contrasena_Usuario,
                   tipo_Usuario,
