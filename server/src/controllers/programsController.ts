@@ -61,6 +61,12 @@ export const updateProgramStatusById = async (req: any, res: Response) => {
          fecha_modificado: new Date(),
       };
    }
+   if (Program.programa_Referencia !== req.body.programa_Referencia) {
+      userLog["logs_referencia"] = {
+         nombre_Usuario: UserFound.nombre_Usuario,
+         fecha_modificado: new Date(),
+      };
+   }
    console.log("AAAAAA", userLog);
    if (Program.userLogs) {
       await UserLogs.findOneAndUpdate(
