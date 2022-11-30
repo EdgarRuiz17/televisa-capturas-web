@@ -7,7 +7,6 @@ import Import from "./screens/Import";
 import MiniDrawer from "./components/Drawer";
 import GrillsScreen from "./screens/GrillsScreen";
 import ReactVirtualizedTable from "./containers/ProgrammationsTable";
-import ProgramsGrid from "./containers/ProgramsGrid";
 import CurrentUserContext, { CurrentUserProvider } from "./context/userContext";
 import Error404 from "./screens/404";
 import UsersTable from "./containers/UsersTable";

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { VerifyAuthUser } from "../backend/backendRequests";
+import { VerifyAuthUser } from "../libs/backendRequests";
 
 export type UserType = {
    nombre_Usuario: string;
@@ -34,8 +34,6 @@ export const CurrentUserProvider = ({ children }: ProviderProps) => {
    const [openExpiredModal, setOpenExpiredModal] = React.useState(false);
 
    React.useEffect(() => {
-      // setInterval(checkLogin, 40000);
-      // setInterval(checkLogin, 30000);
       checkLogin();
    }, []);
 

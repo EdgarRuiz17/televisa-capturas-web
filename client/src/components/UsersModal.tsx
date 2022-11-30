@@ -3,10 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import dayjs, { Dayjs } from "dayjs";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InfoIcon from "@mui/icons-material/Info";
 import {
    Divider,
@@ -18,9 +14,7 @@ import {
    InputLabel,
    MenuItem,
    OutlinedInput,
-   Paper,
    Select,
-   TextField,
    Tooltip,
 } from "@mui/material";
 
@@ -43,10 +37,9 @@ interface UsersModalProps {
 const Types = ["Administrador", "Usuario Web", "Usuario de escritorio"];
 
 export default function UsersModal(props: UsersModalProps) {
-   const [showInformation, setShowInformation] = React.useState(false);
    const expressions = {
       user_name: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
    };
 
    const handleClose = () => props.setOpen(false);

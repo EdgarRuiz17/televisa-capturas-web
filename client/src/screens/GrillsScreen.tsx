@@ -1,8 +1,6 @@
 import { Box } from "@mui/system";
-import React from "react";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import { ListItemButton, ListItemIcon, ListItemText, Tab } from "@mui/material";
+import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { Link, Outlet } from "react-router-dom";
 import PreviewIcon from "@mui/icons-material/Preview";

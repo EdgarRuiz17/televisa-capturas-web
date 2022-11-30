@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { getAllProgrammations } from "../backend/backendRequests";
+import { deleteProgrammationById, getAllProgrammations, modifyProgrammationById } from "../libs/backendRequests";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import PreviewIcon from "@mui/icons-material/Preview";
@@ -17,6 +17,8 @@ import AlertDialog from "../components/AlertDialog";
 import { Link } from "react-router-dom";
 import { useToken } from "../hooks/userTokenHook";
 import Box from "@mui/material/Box";
+import AlertSnackBar from "../components/AlertSnackbar";
+import { AlertColor } from "@mui/lab";
 
 interface Data {
    fecha: string;
@@ -26,13 +28,13 @@ interface Data {
 const columns = [
    { id: "Inicio/Fin", label: "Inicio/Fin", minWidth: 30 },
    { id: "detalles", label: "Ver detalles", minWidth: 30 },
-   { id: "modificar", label: "Modificar", minWidth: 30 },
+   // { id: "modificar", label: "Modificar", minWidth: 30 },
    { id: "eliminar", label: "Eliminar", minWidth: 30 },
 ];
 
 function createData(semana_inicio: string, semana_fin: string, id: string): Data {
    return {
-      fecha: semana_inicio + " - " + semana_fin,
+      fecha: new Date(semana_inicio).toLocaleDateString() + " - " + new Date(semana_fin).toLocaleDateString(),
       id: id,
    };
 }
@@ -40,9 +42,17 @@ function createData(semana_inicio: string, semana_fin: string, id: string): Data
 export default function StickyHeadTable() {
    const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
    const [openModifyModal, setOpenModifyModal] = React.useState(false);
+   const [openSnackBar, setOpenSnackBar] = React.useState<boolean>(false);
+   const [messageSnackBar, setMessageSnackBar] = React.useState("");
+   const [severitySnackBar, setSeveritySnackBar] = React.useState<AlertColor>("error");
    const [page, setPage] = React.useState(0);
    const [rowsPerPage, setRowsPerPage] = React.useState(5);
    const [programmations, setProgrammations] = React.useState([]);
+   const [programmationSelected, setProgrammationSelected] = React.useState({
+      _id: "",
+      semana_inicio: "",
+      semana_fin: "",
+   });
    const token = useToken();
 
    const rows = programmations.map((programmation: any) => {
@@ -57,7 +67,7 @@ export default function StickyHeadTable() {
          setProgrammations(programmationsResponseData);
       };
       getProgrammations();
-   }, []);
+   }, [token, openSnackBar]);
 
    const handleOpen = () => setOpenModifyModal(true);
 
@@ -70,8 +80,27 @@ export default function StickyHeadTable() {
       setPage(0);
    };
 
+   const handleDeleteProgrammation = async () => {
+      await deleteProgrammationById(token, programmationSelected._id);
+      setMessageSnackBar("La programación fué eliminada.");
+      setSeveritySnackBar("success");
+      setOpenSnackBar(true);
+
+      setProgrammationSelected({ _id: "", semana_inicio: "", semana_fin: "" });
+      setOpenDeleteAlert(false);
+   };
+
+   const handleModifyProgrammation = async () => {
+      await modifyProgrammationById(
+         token,
+         programmationSelected._id,
+         programmationSelected.semana_inicio,
+         programmationSelected.semana_fin
+      );
+   };
+
    return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ display: "flex", justifyContent: "center", m: 5 }}>
          <Paper sx={{ width: "90%", overflow: "hidden" }}>
             <TableContainer sx={{ maxHeight: 1300 }}>
                <Table stickyHeader aria-label="sticky table">
@@ -100,13 +129,37 @@ export default function StickyHeadTable() {
                                     </Button>
                                  </Link>
                               </TableCell>
-                              <TableCell>
-                                 <Button onClick={() => handleOpen()}>
+                              {/* <TableCell>
+                                 <Button
+                                    onClick={() =>
+                                       programmations.findIndex((e) => {
+                                          if (e._id === row.id) {
+                                             setProgrammationSelected({
+                                                _id: e._id,
+                                                semana_inicio: e.semana_Inicio.split("T")[0],
+                                                semana_fin: e.semana_Fin.split("T")[0],
+                                             });
+                                             return handleOpen();
+                                          }
+                                          return null;
+                                       })
+                                    }
+                                 >
                                     <BorderColorIcon />
                                  </Button>
-                              </TableCell>
+                              </TableCell> */}
                               <TableCell>
-                                 <Button onClick={() => setOpenDeleteAlert(true)}>
+                                 <Button
+                                    onClick={() =>
+                                       programmations.findIndex((e) => {
+                                          if (e._id === row.id) {
+                                             setProgrammationSelected(e);
+                                             return setOpenDeleteAlert(true);
+                                          }
+                                          return null;
+                                       })
+                                    }
+                                 >
                                     <DeleteForeverIcon />
                                  </Button>
                               </TableCell>
@@ -125,13 +178,26 @@ export default function StickyHeadTable() {
                onPageChange={handleChangePage}
                onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <GrillsModal idModify={true} open={openModifyModal} setOpen={setOpenModifyModal} />
+            {/* <GrillsModal
+               idModify={true}
+               open={openModifyModal}
+               programmation={programmationSelected}
+               setProgrammation={setProgrammationSelected}
+               setOpen={setOpenModifyModal}
+               onConfirm={handleModifyProgrammation}
+            /> */}
             <AlertDialog
                head={"¿Está seguro de que desea eliminar la programación semanal?"}
                message={"Si se continúa, se eliminará la programación y también los programas que este tenga."}
                open={openDeleteAlert}
                setOpen={setOpenDeleteAlert}
-               onConfirm={() => {}}
+               onConfirm={() => handleDeleteProgrammation()}
+            />
+            <AlertSnackBar
+               open={openSnackBar}
+               setOpen={setOpenSnackBar}
+               message={messageSnackBar}
+               severity={severitySnackBar}
             />
          </Paper>
       </Box>

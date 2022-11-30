@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { createNewUser, deleteUserById, getAllUsers, modifyUserById } from "../backend/backendRequests";
+import { createNewUser, deleteUserById, getAllUsers, modifyUserById } from "../libs/backendRequests";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Button, CircularProgress, Typography } from "@mui/material";
@@ -92,7 +92,7 @@ export default function UsersTable() {
          setIsLoading(false);
       };
       getUsers();
-   }, [openDeleteAlert, openCreateModal]);
+   }, [openDeleteAlert, openCreateModal, token]);
 
    const handleAddUser = async () => {
       if (!user.contrasena_Usuario || !user.nombre_Usuario || !user.tipo_Usuario) {
@@ -234,7 +234,7 @@ export default function UsersTable() {
    };
 
    return (
-      <Box>
+      <Box sx={{ m: 5 }}>
          {isLoading ? (
             <Box sx={{ display: "flex" }}>
                <CircularProgress />
@@ -277,9 +277,9 @@ export default function UsersTable() {
                                              onClick={() =>
                                                 users.findIndex((e) => {
                                                    if (e._id === row._id) {
-                                                      console.log(e);
-                                                      handleModifyInformation(e);
+                                                      return handleModifyInformation(e);
                                                    }
+                                                   return null;
                                                 })
                                              }
                                           >
@@ -290,11 +290,10 @@ export default function UsersTable() {
                                           <Button
                                              onClick={() =>
                                                 users.findIndex((e) => {
-                                                   console.log(e);
                                                    if (e._id === row._id) {
                                                       setUser(e);
                                                    }
-                                                   setOpenDeleteAlert(true);
+                                                   return setOpenDeleteAlert(true);
                                                 })
                                              }
                                           >
