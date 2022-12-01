@@ -21,9 +21,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import TableViewIcon from "@mui/icons-material/TableView";
 import { Theme, CSSObject } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import TokenExpiredModal from "./TokenExpiredModal";
 import CurrentUserContext from "../context/userContext";
-import { LoadingButton } from "@mui/lab";
 import LoadingModal from "./LoadingModal";
 import AlertDialog from "./AlertDialog";
 
@@ -55,7 +53,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
    alignItems: "center",
    justifyContent: "flex-end",
    padding: theme.spacing(0, 1),
-   // necessary for content to be below app bar
    ...theme.mixins.toolbar,
 }));
 
@@ -99,7 +96,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 export default function MiniDrawer() {
    const theme = useTheme();
    const [open, setOpen] = React.useState(false);
-   const [openMenu, setOpenMenu] = React.useState(false);
    const { authIsLoading, handleLogout, currentUser } = React.useContext(CurrentUserContext);
    const [openLogoutModal, setOpenLogoutModal] = React.useState(false);
 
@@ -141,26 +137,27 @@ export default function MiniDrawer() {
             </DrawerHeader>
             <Divider />
             <ListItem key={"text"} disablePadding sx={{ display: "block" }}>
-               <ListItemButton
-                  sx={{
-                     minHeight: 48,
-                     justifyContent: open ? "initial" : "center",
-                     px: 2.5,
-                  }}
-                  onClick={() => console.log(currentUser)}
-               >
-                  <ListItemIcon
+               <Link to={"/menu/"} style={{ textDecoration: "none", color: "black" }}>
+                  <ListItemButton
                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
+                        minHeight: 48,
+                        justifyContent: open ? "initial" : "center",
+                        px: 2.5,
                      }}
+                     onClick={() => console.log(currentUser)}
                   >
-                     <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Home"} sx={{ opacity: open ? 1 : 0 }} />
-               </ListItemButton>
-
+                     <ListItemIcon
+                        sx={{
+                           minWidth: 0,
+                           mr: open ? 3 : "auto",
+                           justifyContent: "center",
+                        }}
+                     >
+                        <HomeIcon />
+                     </ListItemIcon>
+                     <ListItemText primary={"Home"} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+               </Link>
                <ListItem key={"text"} disablePadding sx={{ display: "block" }}>
                   <Link to={"/menu/grills/list"} style={{ textDecoration: "none", color: "black" }}>
                      <ListItemButton

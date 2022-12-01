@@ -1,35 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { processInformation } from "../functions/procesarExcel";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import * as XLSX from "xlsx";
 import * as cpexcel from "xlsx/dist/cpexcel.full.mjs";
-import { createNewProgram, createNewProgrammation } from "../backend/backendRequests";
+import { createNewProgram, createNewProgrammation } from "../libs/backendRequests";
 import { useToken } from "../hooks/userTokenHook";
+import { Alert, AlertColor } from "@mui/material";
 XLSX.set_cptable(cpexcel);
 
 const Import = () => {
    const [programmation, setProgrammation] = useState<any>({});
    const [programs, setPrograms] = useState<object[]>([{}]);
+   const [alertText, setAlertText] = useState("");
+   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("success");
+   const [openAlert, setOpenAlert] = useState(false);
    const token = useToken();
 
    const handleCreateProgrammation = async () => {
       const createdProgrammationResponse = await createNewProgrammation(token, programmation);
-      // console.log(createdProgrammationResponse);
       const createdProgrammationResponseObtained = createdProgrammationResponse.data;
       programs.map(async (program, i) => {
-         // if (i > 58) {
-         //    console.log(program);
-         //    return;
-         // }
-         const createdProgramResponse = await createNewProgram(
-            token,
-            program,
-            createdProgrammationResponseObtained._id
-         );
-         // console.log(createdProgramResponse);
+         await createNewProgram(token, program, createdProgrammationResponseObtained._id);
       });
+      setAlertText("Se importo correctamente la programación!");
+      setAlertSeverity("success");
+      setOpenAlert(true);
    };
 
    const handleFile = async (event) => {
@@ -82,8 +76,8 @@ const Import = () => {
          let dateNum = months[`${date[6]}`];
          console.log(dateNum);
          let programation = {
-            semana_Inicio: `${date[2]}/${dateNum}/${date[8].replace(".", "")}`,
-            semana_Fin: `${date[4]}/${dateNum}/${date[8].replace(".", "")}`,
+            semana_Inicio: new Date(date[8].replace(".", ""), dateNum, date[2]),
+            semana_Fin: new Date(date[8].replace(".", ""), dateNum, date[4]),
             semana_Programas: [],
          };
          setProgrammation(programation);
@@ -208,7 +202,7 @@ const Import = () => {
                         timeSplit[0],
                         timeSplit[1]
                      );
-                     if (timeSplit[0] == "00") {
+                     if (timeSplit[0] === "00") {
                         console.log(dateSplit, "cell", cell);
                         program["hora_Inicio"] = new Date(
                            dateSplit[2].replace(".", ""),
@@ -228,7 +222,7 @@ const Import = () => {
                         timeSplit[0],
                         timeSplit[1]
                      );
-                     if (timeSplit[0] == "00") {
+                     if (timeSplit[0] === "00") {
                         program["hora_Fin"] = new Date(
                            dateSplit[2].replace(".", ""),
                            dateSplit[1] - 1,
@@ -256,6 +250,12 @@ const Import = () => {
    return (
       <main className="d-flex">
          <div className="container vh-100">
+            {openAlert ? (
+               <Alert severity={alertSeverity} color="info">
+                  {alertText}
+               </Alert>
+            ) : null}
+
             <div className="row p-4 justify-content-center align-items-center">
                <div className="col-auto">
                   <form>

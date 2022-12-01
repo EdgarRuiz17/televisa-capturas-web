@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 //styled components
 import { ErrorMessage } from "../styles/FormStyles";
 import Input from "../components/FormInput";
 import CurrentUserContext from "../context/userContext";
-import { AuthUser } from "../backend/backendRequests";
+import { AuthUser } from "../libs/backendRequests";
 import TokenExpiredModal from "../components/TokenExpiredModal";
 
 const Logo = require("../assets/logo-televisa.png");

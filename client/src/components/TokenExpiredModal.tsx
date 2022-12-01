@@ -1,10 +1,7 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import CurrentUserContext from "../context/userContext";
-import { useNavigate } from "react-router-dom";
 
 const style = {
    position: "absolute" as "absolute",
@@ -24,7 +21,6 @@ interface TokenExpiredModalProps {
 }
 
 export default function TokenExpiredModal(props: TokenExpiredModalProps) {
-   const navigate = useNavigate();
    const handleClose = () => {
       props.setOpen(false);
    };

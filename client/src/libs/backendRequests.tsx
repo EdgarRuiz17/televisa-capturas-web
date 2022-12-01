@@ -127,6 +127,33 @@ export const getProgrammationById = async (token: string, id: string) => {
    return await axios.get(`${LOCALROUTE}${PROGRAMMATIONS}/programs/${id}`, headers);
 };
 
+export const deleteProgrammationById = async (token: string, programmation_Id: string) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   return await axios.delete(`${LOCALROUTE}${PROGRAMMATIONS}/delete/${programmation_Id}`, headers);
+};
+
+export const modifyProgrammationById = async (
+   token: string,
+   programmation_Id: string,
+   semana_Inicio: string,
+   semana_Fin: string
+) => {
+   const headers = {
+      headers: {
+         Authorization: token,
+      },
+   };
+   const payload = {
+      semana_Fin,
+      semana_Inicio,
+   };
+   return await axios.put(`${LOCALROUTE}${PROGRAMMATIONS}/${programmation_Id}`, payload, headers);
+};
+
 // Programs Calls
 
 export const createNewProgram = async (
@@ -169,6 +196,7 @@ export const modifyProgram = async (
    token: string,
    idToModify: string,
    programa_Nombre: string,
+   programa_Subnombre: string,
    programa_Tipo: string,
    programa_Calidad: string,
    hora_Inicio: Date,
@@ -176,6 +204,7 @@ export const modifyProgram = async (
 ) => {
    const payload = {
       programa_Nombre,
+      programa_Subnombre,
       programa_Tipo,
       programa_Calidad,
       hora_Inicio,

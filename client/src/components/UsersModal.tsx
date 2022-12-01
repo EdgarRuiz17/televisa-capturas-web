@@ -1,12 +1,6 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import dayjs, { Dayjs } from "dayjs";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Box, Input, Button, Typography, Modal } from "@mui/material";
+
 import InfoIcon from "@mui/icons-material/Info";
 import {
    Divider,
@@ -17,11 +11,9 @@ import {
    InputAdornment,
    InputLabel,
    MenuItem,
-   OutlinedInput,
-   Paper,
    Select,
-   TextField,
    Tooltip,
+   DialogActions,
 } from "@mui/material";
 
 interface UsersModalProps {
@@ -43,10 +35,9 @@ interface UsersModalProps {
 const Types = ["Administrador", "Usuario Web", "Usuario de escritorio"];
 
 export default function UsersModal(props: UsersModalProps) {
-   const [showInformation, setShowInformation] = React.useState(false);
    const expressions = {
       user_name: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
    };
 
    const handleClose = () => props.setOpen(false);
@@ -123,10 +114,10 @@ export default function UsersModal(props: UsersModalProps) {
                </Typography>
                <Divider />
                <Grid item container>
-                  <Grid xs={12} item sx={{ m: 3 }}>
-                     <FormControl variant="outlined" fullWidth>
+                  <Grid xs={12} item sx={{ m: 2 }}>
+                     <FormControl variant="standard" fullWidth>
                         <InputLabel htmlFor="outlined-adornment-password">Nombre de usuario</InputLabel>
-                        <OutlinedInput
+                        <Input
                            id="outlined-adornment-password"
                            name="nombre_Usuario"
                            type="text"
@@ -146,17 +137,16 @@ export default function UsersModal(props: UsersModalProps) {
                                  </Tooltip>
                               </InputAdornment>
                            }
-                           label="Nombre de usuario"
                         />
                         <FormHelperText>
                            {props.errors.nombre_Usuario.error ? props.errors.nombre_Usuario.message : ""}
                         </FormHelperText>
                      </FormControl>
                   </Grid>
-                  <Grid xs={12} item sx={{ m: 3 }}>
-                     <FormControl variant="outlined" fullWidth>
+                  <Grid xs={12} item sx={{ m: 2 }}>
+                     <FormControl variant="standard" fullWidth>
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                        <OutlinedInput
+                        <Input
                            id="outlined-adornment-password"
                            name="contrasena_Usuario"
                            type="password"
@@ -176,15 +166,14 @@ export default function UsersModal(props: UsersModalProps) {
                                  </Tooltip>
                               </InputAdornment>
                            }
-                           label="Contraseña"
                         />
                         <FormHelperText>
                            {props.errors.contrasena_Usuario.error ? props.errors.contrasena_Usuario.message : ""}
                         </FormHelperText>
                      </FormControl>
                   </Grid>
-                  <Grid item xs={12} sx={{ m: 3 }}>
-                     <FormControl fullWidth sx={{ textAlign: "left" }}>
+                  <Grid item xs={12} sx={{ m: 2 }}>
+                     <FormControl fullWidth sx={{ textAlign: "left" }} variant="standard">
                         <InputLabel id="demo-simple-select-label">Tipo de usuario</InputLabel>
                         <Select
                            labelId="demo-simple-select-label"
@@ -201,19 +190,23 @@ export default function UsersModal(props: UsersModalProps) {
                      </FormControl>
                   </Grid>
                </Grid>
-               <Divider />
-               <Grid sx={{ textAlign: "center" }}>
-                  <Button sx={{ height: "50px", bgcolor: "whitesmoke" }} variant="outlined" onClick={props.onConfirm}>
-                     {props.isModify ? "Modificar" : "Crear"}
-                  </Button>
-                  <Button
-                     sx={{ height: "50px", m: 2, borderColor: "red" }}
-                     variant="outlined"
-                     onClick={() => props.setOpen(false)}
-                  >
+               <DialogActions>
+                  <Button onClick={() => props.setOpen(false)} sx={{ color: "red" }}>
                      Cancelar
                   </Button>
-               </Grid>
+                  <Button
+                     onClick={props.onConfirm}
+                     sx={{
+                        bgcolor: "#0098F0",
+                        color: "white",
+                        "&:hover": {
+                           backgroundColor: "#027BC1",
+                        },
+                     }}
+                  >
+                     {props.isModify ? "Modificar" : "Crear"}
+                  </Button>
+               </DialogActions>
             </Box>
          </Modal>
       </div>
