@@ -9,6 +9,8 @@ import {
    InputLabel,
    Select,
    MenuItem,
+   Typography,
+   Divider,
 } from "@mui/material";
 import {
    createNewProgram,
@@ -25,6 +27,7 @@ import { ProcessedEvent, SchedulerHelpers } from "@aldabil/react-scheduler/types
 import { es } from "date-fns/locale";
 import { format } from "date-fns";
 import { useToken } from "../hooks/userTokenHook";
+import { Alert } from "@mui/lab";
 
 interface Data {
    event_id: string;
@@ -109,17 +112,19 @@ const Calendar = () => {
       return dateCopy;
    }
 
-   const events = programs.map((program) => {
-      return createData(
-         program._id,
-         program.programa_Nombre,
-         program.hora_Inicio,
-         program.hora_Fin,
-         program.programa_Tipo,
-         program.programa_Calidad,
-         program.programa_Subnombre
-      );
-   });
+   const events = programs
+      ? programs.map((program) => {
+           return createData(
+              program._id,
+              program.programa_Nombre,
+              program.hora_Inicio,
+              program.hora_Fin,
+              program.programa_Tipo,
+              program.programa_Calidad,
+              program.programa_Subnombre
+           );
+        })
+      : [];
 
    const handleDeleteProgram = async (id: string) => {
       await deleteProgram(token, id);
@@ -223,8 +228,11 @@ const Calendar = () => {
       };
       return (
          <div>
-            <div style={{ padding: "1rem", minWidth: 600 }}>
-               <p>Modificar programa</p>
+            <div style={{ padding: "1rem", minWidth: 600, textAlign: "center" }}>
+               <Typography id="modal-modal-title" variant="h6" sx={{ m: 2 }}>
+                  Modificar programa
+               </Typography>
+               <Divider />
                <Box sx={{ p: 2 }}>
                   <TextField
                      label="Nombre del programa"
@@ -313,8 +321,21 @@ const Calendar = () => {
                </Box>
             </div>
             <DialogActions>
-               <Button onClick={scheduler.close}>Cancelar</Button>
-               <Button onClick={handleSubmit}>Confirmar</Button>
+               <Button onClick={scheduler.close} sx={{ color: "red" }}>
+                  Cancelar
+               </Button>
+               <Button
+                  onClick={handleSubmit}
+                  sx={{
+                     bgcolor: "#0098F0",
+                     color: "white",
+                     "&:hover": {
+                        backgroundColor: "#027BC1",
+                     },
+                  }}
+               >
+                  Confirmar
+               </Button>
             </DialogActions>
          </div>
       );
@@ -322,7 +343,7 @@ const Calendar = () => {
 
    return (
       <>
-         {!isLoading ? (
+         {events.length > 0 ? (
             <Scheduler
                deletable={true}
                view="week"
@@ -366,9 +387,15 @@ const Calendar = () => {
                   moreEvents: "Mas...",
                }}
             />
-         ) : (
-            <Box sx={{ display: "flex", alignContent: "center", justifyContent: "center" }}>
+         ) : isLoading ? (
+            <Box sx={{ maxWidth: "100%", display: "flex", justifyContent: "center", p: 4 }}>
                <CircularProgress />
+            </Box>
+         ) : (
+            <Box sx={{ maxWidth: "100%", display: "flex", justifyContent: "center", p: 4 }}>
+               <Alert severity={"error"} color="info">
+                  No tiene ninguna programación registrada.
+               </Alert>
             </Box>
          )}
          <AlertSnackBar

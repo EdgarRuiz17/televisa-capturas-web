@@ -11,6 +11,7 @@ import CurrentUserContext, { CurrentUserProvider } from "./context/userContext";
 import Error404 from "./screens/404";
 import UsersTable from "./containers/UsersTable";
 import Calendar from "./containers/ProgramsScheduler";
+import { IdleScreen } from "./screens/IldeScreen";
 
 //Compoents
 
@@ -35,6 +36,7 @@ const InitialRoutes = () => {
                <Routes>
                   <Route path="*" element={<Error404 />} />
                   <Route path="/menu" element={<MiniDrawer />}>
+                     <Route path="" element={<IdleScreen />} />
                      <Route path="grills" element={<GrillsScreen />}>
                         <Route path="list" element={<ReactVirtualizedTable />} />
                         <Route path="programmation/last" element={<Calendar />} />

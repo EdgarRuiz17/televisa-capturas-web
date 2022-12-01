@@ -137,26 +137,27 @@ export default function MiniDrawer() {
             </DrawerHeader>
             <Divider />
             <ListItem key={"text"} disablePadding sx={{ display: "block" }}>
-               <ListItemButton
-                  sx={{
-                     minHeight: 48,
-                     justifyContent: open ? "initial" : "center",
-                     px: 2.5,
-                  }}
-                  onClick={() => console.log(currentUser)}
-               >
-                  <ListItemIcon
+               <Link to={"/menu/"} style={{ textDecoration: "none", color: "black" }}>
+                  <ListItemButton
                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
+                        minHeight: 48,
+                        justifyContent: open ? "initial" : "center",
+                        px: 2.5,
                      }}
+                     onClick={() => console.log(currentUser)}
                   >
-                     <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Home"} sx={{ opacity: open ? 1 : 0 }} />
-               </ListItemButton>
-
+                     <ListItemIcon
+                        sx={{
+                           minWidth: 0,
+                           mr: open ? 3 : "auto",
+                           justifyContent: "center",
+                        }}
+                     >
+                        <HomeIcon />
+                     </ListItemIcon>
+                     <ListItemText primary={"Home"} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+               </Link>
                <ListItem key={"text"} disablePadding sx={{ display: "block" }}>
                   <Link to={"/menu/grills/list"} style={{ textDecoration: "none", color: "black" }}>
                      <ListItemButton
