@@ -185,7 +185,7 @@ const Import = () => {
                      let dataSplit = cell.data.split("\n");
                      program["programa_Nombre"] = dataSplit[0];
                      if (dataSplit.length > 3) {
-                        program["programa_Subnombre"] = dataSplit[1];
+                        program["programa_Subnombre"] = dataSplit[4];
                         program["programa_Calidad"] = dataSplit[2];
                         program["programa_Tipo"] = dataSplit[3];
                      } else {
